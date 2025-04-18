@@ -42,7 +42,7 @@ const Space2: React.FC = () => {
           <Box sx={{ display: "flex", gap: 2, mb: 2, flexWrap: "wrap" }}>
             <Chip icon={<People />} label="120 people" />
             <Chip icon={<AccessTime />} label="6 hrs min" />
-            <Chip icon={<SquareFoot />} label="4300 sqft" />
+            <Chip icon={<SquareFoot />} label="15,000 sqft" />
             <Box sx={{ ml: "20px" }}>
               <Button
                 variant="contained"
@@ -63,11 +63,10 @@ const Space2: React.FC = () => {
             </Typography>
 
             <Typography variant="body1" paragraph>
-              Coming soon...
-            </Typography>
-
-            <Typography variant="body1" paragraph>
-              Coming soon...
+              <strong>OUTDOOR GATED COURTYARD:</strong> 15,000 sq ft expansive
+              outdoor gated courtyard available as add-on space, standalone
+              event space or reserved parking (available all day weekends and
+              weekday evenings after 6:30pm).
             </Typography>
 
             <Divider sx={{ my: 4 }} />
@@ -106,28 +105,14 @@ const Space2: React.FC = () => {
               Furniture
             </Typography>
             <Typography variant="body2" paragraph>
-              <strong>Tables (Qty: 5):</strong> We have several tables
-              throughout the unit that we ask that you do not move. Most are on
-              the mezzanine floor. Additional table rentals available as add-on
-              - must be requested at least 5 business days ahead of the
-              reservation day.
+              <strong>Tables (Qty: 1):</strong> Additional table rentals
+              available as add-on - must be requested at least 5 business days
+              ahead of the reservation day.
             </Typography>
             <Typography variant="body2" paragraph>
-              <strong>Chairs (Qty: 15):</strong> Some chairs available
-              throughout the unit. Additional chair rentals available as add-on
-              - must be requested at least 5 business days ahead of the
-              reservation day.
-            </Typography>
-
-            <Typography variant="h6" gutterBottom sx={{ mt: 3 }}>
-              Outdoor Space
-            </Typography>
-            <Typography variant="body2" paragraph>
-              <strong>OUTDOOR GATED COURTYARD:</strong> 15,000 sq ft expansive
-              outdoor gated courtyard available as add-on space, standalone
-              event space or reserved parking (available all day weekends and
-              weekday evenings after 6:30pm). Ask for details or if interested
-              in booking as standalone event space.
+              <strong>Chairs (Qty: 2):</strong> Additional chair rentals
+              available as add-on - must be requested at least 5 business days
+              ahead of the reservation day.
             </Typography>
 
             <Typography variant="h6" gutterBottom sx={{ mt: 3 }}>
@@ -172,12 +157,7 @@ const Space2: React.FC = () => {
                 <strong>Food:</strong> Outside food and non-alcoholic beverages
                 allowed. No cooking is allowed on-site.
               </Typography>
-              <Typography variant="body2" paragraph>
-                <strong>Prep Area:</strong> Food prep area available in the
-                back, no stove top or other equipment. Might be able to
-                accommodate if asked ahead of time depending on the request. No
-                open flames allowed.
-              </Typography>
+
               <Typography variant="body2" paragraph>
                 <strong>Alcoholic Beverages:</strong> Guests can bring their own
                 alcohol. Beer, wine, and seltzers only. Liquor must be served by

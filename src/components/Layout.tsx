@@ -134,14 +134,14 @@ const Layout: React.FC = () => {
                   <MenuItem
                     onClick={handleSpacesClose}
                     component={RouterLink}
-                    to="/space1"
+                    to="/thewilsonroom"
                   >
                     The Wilson Room
                   </MenuItem>
                   <MenuItem
                     onClick={handleSpacesClose}
                     component={RouterLink}
-                    to="/space2"
+                    to="/thecourtyard"
                   >
                     The Courtyard
                   </MenuItem>
@@ -211,7 +211,7 @@ const Layout: React.FC = () => {
               <>
                 <ListItemButton
                   component={RouterLink}
-                  to="/space1"
+                  to="/thewilsonroom"
                   onClick={toggleDrawer(false)}
                   sx={{ pl: 4 }}
                 >
@@ -220,7 +220,7 @@ const Layout: React.FC = () => {
 
                 <ListItemButton
                   component={RouterLink}
-                  to="/space2"
+                  to="/thecourtyard"
                   onClick={toggleDrawer(false)}
                   sx={{ pl: 4 }}
                 >
