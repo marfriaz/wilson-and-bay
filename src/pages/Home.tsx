@@ -1,6 +1,5 @@
 import type React from "react";
-import { Typography, Button, Box } from "@mui/material";
-import { Link as RouterLink } from "react-router-dom";
+import { Typography, Box } from "@mui/material";
 
 const Home: React.FC = () => {
   return (

@@ -78,7 +78,7 @@ const Gallery: React.FC = () => {
                 component="img"
                 height="220"
                 image={item.src}
-                // alt={item.title}
+                alt={item.alt}
               />
             </Card>
           </Grid>
