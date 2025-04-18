@@ -5,15 +5,17 @@ import {
   TextField,
   Button,
   Box,
-  //   Snackbar,
-  //   Alert,
   FormControl,
   InputLabel,
   Select,
   MenuItem,
   SelectChangeEvent,
+  Grid,
+  Paper,
+  Divider,
 } from "@mui/material";
-// import emailjs from "emailjs-com";
+import EmailIcon from "@mui/icons-material/Email";
+import LocationOnIcon from "@mui/icons-material/LocationOn";
 
 const Contact: React.FC = () => {
   const [formData, setFormData] = useState({
@@ -23,13 +25,6 @@ const Contact: React.FC = () => {
     message: "",
   });
 
-  // Snackbar state
-  //   const [openSnackbar, setOpenSnackbar] = useState(false);
-  //   const [snackbarMessage, setSnackbarMessage] = useState("");
-  //   const [snackbarSeverity, setSnackbarSeverity] = useState<"success" | "error">(
-  //     "success"
-  //   );
-
   const handleChange = (
     e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>
   ) => {
@@ -37,130 +32,107 @@ const Contact: React.FC = () => {
     setFormData((prevState) => ({ ...prevState, [name]: value }));
   };
 
-  const handleSelectChange = (
-    event: SelectChangeEvent<string> // Type for SelectChangeEvent
-  ) => {
+  const handleSelectChange = (event: SelectChangeEvent<string>) => {
     const { name, value } = event.target;
     setFormData((prevState) => ({ ...prevState, [name]: value }));
   };
 
-  //   const handleSubmit = (e: React.FormEvent) => {
-  //     e.preventDefault();
-
-  //     // Send email using EmailJS
-  //     emailjs
-  //       .send(
-  //         process.env.REACT_APP_EMAILJS_SERVICE_ID!,
-  //         process.env.REACT_APP_EMAILJS_TEMPLATE_ID!,
-  //         formData,
-  //         process.env.REACT_APP_EMAILJS_USER_ID!
-  //       )
-  //       .then(
-  //         (response) => {
-  //           console.log("SUCCESS:", response);
-  //           setSnackbarMessage(
-  //             "Thanks for your inquiry! Your email has been sent."
-  //           );
-  //           setSnackbarSeverity("success");
-  //           setOpenSnackbar(true);
-  //         },
-  //         (error) => {
-  //           console.log("FAILED:", error);
-  //           setSnackbarMessage(
-  //             "Sorry, there has been an error. Please try again."
-  //           );
-  //           setSnackbarSeverity("error");
-  //           setOpenSnackbar(true);
-  //         }
-  //       );
-
-  //     // Reset form after submission
-  //     setFormData({ name: "", email: "", space: "", message: "" });
-  //   };
-
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
-    const email = "marfriaz@gmail.com";
+    // const email = "marfriaz@gmail.com";
+    const email = "932wilson@gmail.com";
     const mailtoLink = `mailto:${email}?subject=Inquiry%20for%20${encodeURIComponent(
       formData.space
     )}%20-%20${encodeURIComponent(formData.name)}&body=${encodeURIComponent(
       formData.message
     )}`;
 
-    window.location.href = mailtoLink; // This opens the default email client with the prefilled details
+    // window.location.href = mailtoLink;
+    window.open(mailtoLink, "_blank");
 
-    // Reset form after submission
     setFormData({ name: "", email: "", space: "", message: "" });
   };
 
   return (
-    <Box sx={{ maxWidth: 600, mx: "auto" }}>
-      <Typography variant="h3" gutterBottom>
-        Contact Us
-      </Typography>
-      <form onSubmit={handleSubmit}>
-        <TextField
-          fullWidth
-          label="Name"
-          name="name"
-          value={formData.name}
-          onChange={handleChange}
-          required
-          margin="normal"
-        />
-        <TextField
-          fullWidth
-          label="Email"
-          name="email"
-          type="email"
-          value={formData.email}
-          onChange={handleChange}
-          required
-          margin="normal"
-        />
-        <FormControl fullWidth required margin="normal">
-          <InputLabel id="space-label">Space of Interest</InputLabel>
-          <Select
-            labelId="space-label"
-            name="space"
-            value={formData.space}
-            onChange={handleSelectChange}
-            label="Space of Interest"
-          >
-            <MenuItem value="Option1">Option 1</MenuItem>
-            <MenuItem value="Option2">Option 2</MenuItem>
-          </Select>
-        </FormControl>
-        <TextField
-          fullWidth
-          label="Message"
-          name="message"
-          multiline
-          rows={4}
-          value={formData.message}
-          onChange={handleChange}
-          required
-          margin="normal"
-        />
-        <Button type="submit" variant="contained" sx={{ mt: 2 }}>
-          Send Inquiry
-        </Button>
-      </form>
+    <Box sx={{ maxWidth: 1000, mx: "auto", mt: 6 }}>
+      <Grid container spacing={4}>
+        {/* Left side - contact info */}
+        <Grid item xs={12} md={5}>
+          <Paper elevation={3} sx={{ p: 3 }}>
+            <Typography variant="h3" gutterBottom>
+              Contact info
+            </Typography>
+            <Box sx={{ display: "flex", alignItems: "center", mb: 2 }}>
+              <EmailIcon sx={{ mr: 1 }} />
+              <Typography>932wilson@gmail.com</Typography>
+            </Box>
+            <Box sx={{ display: "flex", alignItems: "center", mb: 2 }}>
+              <LocationOnIcon sx={{ mr: 1 }} />
+              <Typography>932 Wilson Street, Los Angeles, CA 90021</Typography>
+            </Box>
+            <Divider sx={{ my: 2 }} />
+            <Typography variant="body2" color="text.secondary">
+              We typically respond within 24 hours. Feel free to reach out with
+              any questions or special requests!
+            </Typography>
+          </Paper>
+        </Grid>
 
-      {/* Snackbar for showing success or error messages */}
-      {/* <Snackbar
-        open={openSnackbar}
-        autoHideDuration={6000}
-        onClose={() => setOpenSnackbar(false)}
-      >
-        <Alert
-          onClose={() => setOpenSnackbar(false)}
-          severity={snackbarSeverity}
-          sx={{ width: "100%" }}
-        >
-          {snackbarMessage}
-        </Alert>
-      </Snackbar> */}
+        {/* Right side - form */}
+        <Grid item xs={12} md={7}>
+          <Typography variant="h3" gutterBottom>
+            Contact Us
+          </Typography>
+          <form onSubmit={handleSubmit}>
+            <TextField
+              fullWidth
+              label="Name"
+              name="name"
+              value={formData.name}
+              onChange={handleChange}
+              required
+              margin="normal"
+            />
+            <TextField
+              fullWidth
+              label="Email"
+              name="email"
+              type="email"
+              value={formData.email}
+              onChange={handleChange}
+              required
+              margin="normal"
+            />
+            <FormControl fullWidth required margin="normal">
+              <InputLabel id="space-label">Space of Interest</InputLabel>
+              <Select
+                labelId="space-label"
+                name="space"
+                value={formData.space}
+                onChange={handleSelectChange}
+                label="Space of Interest"
+              >
+                <MenuItem value="The Wilson Room">The Wilson Room</MenuItem>
+                <MenuItem value="The Courtyard">The Courtyard</MenuItem>
+              </Select>
+            </FormControl>
+            <TextField
+              fullWidth
+              label="Message"
+              name="message"
+              multiline
+              rows={4}
+              value={formData.message}
+              onChange={handleChange}
+              required
+              margin="normal"
+            />
+            <Button type="submit" variant="contained" sx={{ mt: 2 }}>
+              Send Inquiry
+            </Button>
+          </form>
+        </Grid>
+      </Grid>
     </Box>
   );
 };

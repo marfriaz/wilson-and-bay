@@ -13,15 +13,27 @@ import {
   MenuItem,
   useMediaQuery,
   useTheme,
+  IconButton,
+  Drawer,
+  List,
+  ListItemButton,
+  ListItemText,
+  Divider,
 } from "@mui/material";
-import { KeyboardArrowDown } from "@mui/icons-material";
+import {
+  KeyboardArrowDown,
+  KeyboardArrowUp,
+  Menu as MenuIcon,
+} from "@mui/icons-material";
 import { Link as RouterLink, Outlet } from "react-router-dom";
 
 const Layout: React.FC = () => {
   const [spacesAnchorEl, setSpacesAnchorEl] = useState<null | HTMLElement>(
     null
   );
+  const [drawerOpen, setDrawerOpen] = useState(false);
   const spacesOpen = Boolean(spacesAnchorEl);
+  const [spacesExpanded, setSpacesExpanded] = useState(true);
 
   const theme = useTheme();
   const isMobile = useMediaQuery(theme.breakpoints.down("sm"));
@@ -34,10 +46,26 @@ const Layout: React.FC = () => {
     setSpacesAnchorEl(null);
   };
 
+  const toggleDrawer = (open: boolean) => () => {
+    setDrawerOpen(open);
+  };
+
+  const toggleSpacesExpanded = () => {
+    setSpacesExpanded(!spacesExpanded);
+  };
+
   return (
-    <Box sx={{ display: "flex", flexDirection: "column", minHeight: "100vh" }}>
+    <Box
+      sx={{
+        display: "flex",
+        flexDirection: "column",
+        minHeight: "100vh",
+        width: "100%",
+        overflowX: "hidden", // Prevent horizontal scrolling
+      }}
+    >
       <AppBar position="static">
-        <Toolbar>
+        <Toolbar sx={{ justifyContent: "space-between", px: { xs: 1, sm: 2 } }}>
           <Typography
             variant="h6"
             component={RouterLink}
@@ -45,115 +73,195 @@ const Layout: React.FC = () => {
             sx={{
               textDecoration: "none",
               color: "inherit",
-              flexGrow: isMobile ? 0 : 1,
+              fontSize: { xs: "1.1rem", sm: "1.25rem" },
             }}
           >
             Wilson&Bay
           </Typography>
 
-          <Box
-            sx={{
-              flexGrow: 1,
-              display: "flex",
-              justifyContent: isMobile ? "flex-end" : "flex-start",
-              gap: 2,
-            }}
-          >
-            <Typography
-              component={RouterLink}
-              to="/"
+          {isMobile ? (
+            <IconButton edge="end" color="inherit" onClick={toggleDrawer(true)}>
+              <MenuIcon />
+            </IconButton>
+          ) : (
+            <Box
               sx={{
-                textDecoration: "none",
-                color: "inherit",
                 display: "flex",
-                alignItems: "center",
+                justifyContent: "flex-end",
+                gap: 3,
               }}
             >
-              Home
-            </Typography>
-
-            <Box>
-              <Button
-                id="spaces-button"
-                aria-controls={spacesOpen ? "spaces-menu" : undefined}
-                aria-haspopup="true"
-                aria-expanded={spacesOpen ? "true" : undefined}
-                onClick={handleSpacesClick}
-                endIcon={<KeyboardArrowDown />}
+              <Typography
+                component={RouterLink}
+                to="/"
                 sx={{
+                  textDecoration: "none",
                   color: "inherit",
-                  textTransform: "none",
-                  fontSize: "1rem",
-                  fontWeight: "normal",
+                  display: "flex",
+                  alignItems: "center",
                 }}
               >
-                Our Spaces
-              </Button>
-              <Menu
-                id="spaces-menu"
-                anchorEl={spacesAnchorEl}
-                open={spacesOpen}
-                onClose={handleSpacesClose}
-                MenuListProps={{
-                  "aria-labelledby": "spaces-button",
+                Home
+              </Typography>
+
+              <Box>
+                <Button
+                  id="spaces-button"
+                  aria-controls={spacesOpen ? "spaces-menu" : undefined}
+                  aria-haspopup="true"
+                  aria-expanded={spacesOpen ? "true" : undefined}
+                  onClick={handleSpacesClick}
+                  endIcon={<KeyboardArrowDown />}
+                  sx={{
+                    color: "inherit",
+                    textTransform: "none",
+                    fontSize: "1rem",
+                    fontWeight: "normal",
+                    padding: "6px 8px",
+                  }}
+                >
+                  Our Spaces
+                </Button>
+                <Menu
+                  id="spaces-menu"
+                  anchorEl={spacesAnchorEl}
+                  open={spacesOpen}
+                  onClose={handleSpacesClose}
+                  MenuListProps={{
+                    "aria-labelledby": "spaces-button",
+                  }}
+                >
+                  <MenuItem
+                    onClick={handleSpacesClose}
+                    component={RouterLink}
+                    to="/space1"
+                  >
+                    The Wilson Room
+                  </MenuItem>
+                  <MenuItem
+                    onClick={handleSpacesClose}
+                    component={RouterLink}
+                    to="/space2"
+                  >
+                    The Courtyard
+                  </MenuItem>
+                </Menu>
+              </Box>
+
+              <Typography
+                component={RouterLink}
+                to="/gallery"
+                sx={{
+                  textDecoration: "none",
+                  color: "inherit",
+                  display: "flex",
+                  alignItems: "center",
                 }}
               >
-                <MenuItem
-                  onClick={handleSpacesClose}
-                  component={RouterLink}
-                  to="/space1"
-                >
-                  The Wilson Room
-                </MenuItem>
-                <MenuItem
-                  onClick={handleSpacesClose}
-                  component={RouterLink}
-                  to="/space2"
-                >
-                  Bay View Loft
-                </MenuItem>
-              </Menu>
+                Gallery
+              </Typography>
+
+              <Typography
+                component={RouterLink}
+                to="/contact"
+                sx={{
+                  textDecoration: "none",
+                  color: "inherit",
+                  display: "flex",
+                  alignItems: "center",
+                }}
+              >
+                Contact Us
+              </Typography>
             </Box>
-
-            <Typography
-              component={RouterLink}
-              to="/gallery"
-              sx={{
-                textDecoration: "none",
-                color: "inherit",
-                display: "flex",
-                alignItems: "center",
-              }}
-            >
-              Gallery
-            </Typography>
-
-            <Typography
-              component={RouterLink}
-              to="/contact"
-              sx={{
-                textDecoration: "none",
-                color: "inherit",
-                display: "flex",
-                alignItems: "center",
-              }}
-            >
-              Contact Us
-            </Typography>
-          </Box>
+          )}
         </Toolbar>
       </AppBar>
-      <Container component="main" sx={{ flexGrow: 1, py: 4 }}>
+
+      <Drawer anchor="right" open={drawerOpen} onClose={toggleDrawer(false)}>
+        <Box sx={{ width: 250, pt: 2 }}>
+          <List>
+            <ListItemButton
+              component={RouterLink}
+              to="/"
+              onClick={toggleDrawer(false)}
+            >
+              <ListItemText primary="Home" />
+            </ListItemButton>
+            <Divider sx={{ my: 1 }} />
+
+            {/* Our Spaces section - collapsible on mobile */}
+            <ListItemButton
+              onClick={toggleSpacesExpanded}
+              sx={{ backgroundColor: "rgba(0, 0, 0, 0.04)" }}
+            >
+              <ListItemText
+                primary="Our Spaces"
+                primaryTypographyProps={{ fontWeight: "medium" }}
+              />
+              {spacesExpanded ? (
+                <KeyboardArrowDown fontSize="small" />
+              ) : (
+                <KeyboardArrowUp fontSize="small" />
+              )}
+            </ListItemButton>
+
+            {/* Conditionally render space links based on expanded state */}
+            {spacesExpanded && (
+              <>
+                <ListItemButton
+                  component={RouterLink}
+                  to="/space1"
+                  onClick={toggleDrawer(false)}
+                  sx={{ pl: 4 }}
+                >
+                  <ListItemText primary="The Wilson Room" />
+                </ListItemButton>
+
+                <ListItemButton
+                  component={RouterLink}
+                  to="/space2"
+                  onClick={toggleDrawer(false)}
+                  sx={{ pl: 4 }}
+                >
+                  <ListItemText primary="The Courtyard" />
+                </ListItemButton>
+              </>
+            )}
+
+            <Divider sx={{ my: 1 }} />
+
+            <ListItemButton
+              component={RouterLink}
+              to="/gallery"
+              onClick={toggleDrawer(false)}
+            >
+              <ListItemText primary="Gallery" />
+            </ListItemButton>
+
+            <ListItemButton
+              component={RouterLink}
+              to="/contact"
+              onClick={toggleDrawer(false)}
+            >
+              <ListItemText primary="Contact Us" />
+            </ListItemButton>
+          </List>
+        </Box>
+      </Drawer>
+
+      <Container
+        component="main"
+        sx={{
+          flexGrow: 1,
+          py: { xs: 2, sm: 4 },
+          px: { xs: 2, sm: 3 },
+          maxWidth: { xs: "100%", sm: "lg" },
+        }}
+        disableGutters={isMobile}
+      >
         <Outlet />
       </Container>
-      {/* <Box
-        component="footer"
-        sx={{ py: 3, px: 2, mt: "auto", backgroundColor: "background.paper" }}
-      >
-        <Typography variant="body2" color="text.secondary" align="center">
-          © {new Date().getFullYear()} Wilson&Bay. All rights reserved.
-        </Typography>
-      </Box> */}
     </Box>
   );
 };

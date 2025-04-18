@@ -12,82 +12,17 @@ import {
   Tab,
 } from "@mui/material";
 import { Close } from "@mui/icons-material";
-
-// Sample gallery data - replace with your actual images
-const galleryData = [
-  {
-    id: 1,
-    space: "wilson",
-    title: "Wilson Room Setup",
-    image: "/wilson-room-1.jpg",
-    description: "Corporate event setup",
-  },
-  {
-    id: 2,
-    space: "wilson",
-    title: "Wilson Room Wedding",
-    image: "/wilson-room-2.jpg",
-    description: "Wedding reception layout",
-  },
-  {
-    id: 3,
-    space: "wilson",
-    title: "Wilson Room Lighting",
-    image: "/wilson-room-3.jpg",
-    description: "Evening lighting setup",
-  },
-  {
-    id: 4,
-    space: "bay",
-    title: "Bay View Daytime",
-    image: "/bay-view-1.jpg",
-    description: "Natural lighting with bay views",
-  },
-  {
-    id: 5,
-    space: "bay",
-    title: "Bay View Cocktail",
-    image: "/bay-view-2.jpg",
-    description: "Cocktail party arrangement",
-  },
-  {
-    id: 6,
-    space: "bay",
-    title: "Bay View Sunset",
-    image: "/bay-view-3.jpg",
-    description: "Sunset view from the loft",
-  },
-  {
-    id: 7,
-    space: "wilson",
-    title: "Wilson Room Details",
-    image: "/wilson-room-4.jpg",
-    description: "Architectural details",
-  },
-  {
-    id: 8,
-    space: "bay",
-    title: "Bay View Photoshoot",
-    image: "/bay-view-4.jpg",
-    description: "Fashion photoshoot setup",
-  },
-];
+import { galleryData } from "../constants";
 
 const Gallery: React.FC = () => {
   const [openImage, setOpenImage] = useState<null | {
-    image: string;
-    title: string;
-    description: string;
+    src: string;
   }>(null);
 
   const [filter, setFilter] = useState("all");
 
-  const handleImageClick = (
-    image: string,
-    title: string,
-    description: string
-  ) => {
-    setOpenImage({ image, title, description });
+  const handleImageClick = (src: string) => {
+    setOpenImage({ src });
   };
 
   const handleClose = () => {
@@ -121,7 +56,7 @@ const Gallery: React.FC = () => {
         >
           <Tab label="All Spaces" value="all" />
           <Tab label="The Wilson Room" value="wilson" />
-          <Tab label="Bay View Loft" value="bay" />
+          <Tab label="The Courtyard" value="courtyard" />
         </Tabs>
       </Box>
 
@@ -137,15 +72,13 @@ const Gallery: React.FC = () => {
                   boxShadow: 3,
                 },
               }}
-              onClick={() =>
-                handleImageClick(item.image, item.title, item.description)
-              }
+              onClick={() => handleImageClick(item.src)}
             >
               <CardMedia
                 component="img"
                 height="220"
-                image={item.image}
-                alt={item.title}
+                image={item.src}
+                // alt={item.title}
               />
             </Card>
           </Grid>
@@ -169,15 +102,15 @@ const Gallery: React.FC = () => {
           {openImage && (
             <>
               <img
-                src={openImage.image || "/placeholder.svg"}
-                alt={openImage.title}
+                src={openImage.src || "/placeholder.svg"}
+                // alt={openImage.title}
                 style={{ width: "100%", height: "auto", display: "block" }}
               />
               <Box sx={{ p: 2, bgcolor: "background.paper" }}>
-                <Typography variant="h6">{openImage.title}</Typography>
-                <Typography variant="body2" color="text.secondary">
+                {/* <Typography variant="h6">{openImage.title}</Typography> */}
+                {/* <Typography variant="body2" color="text.secondary">
                   {openImage.description}
-                </Typography>
+                </Typography> */}
               </Box>
             </>
           )}

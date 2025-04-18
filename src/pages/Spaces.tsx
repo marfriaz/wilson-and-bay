@@ -17,7 +17,7 @@ const spaces = [
   },
   {
     id: 2,
-    name: "Bay View Loft",
+    name: "The Courtyard",
     description:
       "A modern loft with stunning bay views, ideal for photoshoots and intimate gatherings.",
     image: "/bay-view-loft.jpg",

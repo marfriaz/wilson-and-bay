@@ -12,14 +12,6 @@ const Home: React.FC = () => {
         A spacious, multipurpose creative venue located in DTLA Arts District.✨
         Available for buyouts, pop ups, private parties, & more!
       </Typography>
-      <Button
-        variant="contained"
-        component={RouterLink}
-        to="/spaces"
-        size="large"
-      >
-        View Our Spaces
-      </Button>
     </Box>
   );
 };
