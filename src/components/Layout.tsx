@@ -19,12 +19,16 @@ import {
   ListItemButton,
   ListItemText,
   Divider,
+  Link,
 } from "@mui/material";
 import {
   KeyboardArrowDown,
   KeyboardArrowUp,
   Menu as MenuIcon,
 } from "@mui/icons-material";
+import EmailIcon from "@mui/icons-material/Email";
+import LocationOnIcon from "@mui/icons-material/LocationOn";
+import InstagramIcon from "@mui/icons-material/Instagram";
 import { Link as RouterLink, Outlet } from "react-router-dom";
 
 const Layout: React.FC = () => {
@@ -262,6 +266,59 @@ const Layout: React.FC = () => {
       >
         <Outlet />
       </Container>
+
+      {/* Footer */}
+      <Box
+        component="footer"
+        sx={{
+          mt: "auto",
+          bgcolor: "background.paper",
+          py: 3,
+          px: { xs: 2, sm: 3 },
+          borderTop: "1px solid",
+          borderColor: "divider",
+          display: "flex",
+          flexDirection: { xs: "column", sm: "row" },
+          justifyContent: "space-between",
+          alignItems: "center",
+          gap: 2,
+          fontSize: "0.9rem",
+        }}
+      >
+        <Link
+          href="mailto:932wilson@gmail.com"
+          underline="hover"
+          color="inherit"
+          sx={{ display: "flex", alignItems: "center", gap: 1 }}
+        >
+          <EmailIcon fontSize="small" />
+          932wilson@gmail.com
+        </Link>
+
+        <Link
+          href="https://www.google.com/maps/search/?api=1&query=932+Wilson+Street,+Los+Angeles,+CA+90021"
+          target="_blank"
+          rel="noopener noreferrer"
+          underline="hover"
+          color="inherit"
+          sx={{ display: "flex", alignItems: "center", gap: 1 }}
+        >
+          <LocationOnIcon fontSize="small" />
+          932 Wilson Street, Los Angeles, CA 90021
+        </Link>
+
+        <Link
+          href="https://www.instagram.com/wilsonbay.dtla"
+          target="_blank"
+          rel="noopener noreferrer"
+          underline="hover"
+          color="inherit"
+          sx={{ display: "flex", alignItems: "center", gap: 0.5 }}
+        >
+          <InstagramIcon fontSize="small" />
+          @wilsonbay.dtla
+        </Link>
+      </Box>
     </Box>
   );
 };

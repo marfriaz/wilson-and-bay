@@ -276,17 +276,6 @@ const Space1: React.FC = () => {
             ))}
           </List>
         </Paper>
-
-        <Box sx={{ mt: 4, mb: 6, display: "flex", justifyContent: "center" }}>
-          <Button
-            variant="contained"
-            size="large"
-            component={RouterLink}
-            to="/contact?space=The Wilson Room"
-          >
-            Book Now
-          </Button>
-        </Box>
       </Container>
     </Box>
   );
