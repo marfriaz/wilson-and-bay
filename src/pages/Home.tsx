@@ -1,16 +1,18 @@
 import React from "react";
-import { Box, Typography, Button, Container, Grid, Paper } from "@mui/material";
+import { Box, Typography, Button, Container } from "@mui/material";
 
 const Home: React.FC = () => {
   return (
-    <Box>
+    <Box sx={{ mt: "-2rem", pt: 0 }}>
       {/* Hero Section */}
       <Box
         sx={{
           position: "relative",
           height: { xs: "60vh", md: "80vh" },
-          width: "100%",
+          width: "100vw",
           overflow: "hidden",
+          marginLeft: "calc(-50vw + 50%)",
+          marginRight: "calc(-50vw + 50%)",
         }}
       >
         <Box
