@@ -3,7 +3,7 @@ import { Box, Typography, Button, Container } from "@mui/material";
 
 const Home: React.FC = () => {
   return (
-    <Box sx={{ mt: "-2rem", pt: 0 }}>
+    <Box>
       {/* Hero Section */}
       <Box
         sx={{

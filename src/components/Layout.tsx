@@ -258,7 +258,7 @@ const Layout: React.FC = () => {
         component="main"
         sx={{
           flexGrow: 1,
-          py: { xs: 2, sm: 4 },
+          py: 0,
           px: { xs: 2, sm: 3 },
           maxWidth: { xs: "100%", sm: "lg" },
         }}
