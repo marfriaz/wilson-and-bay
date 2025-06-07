@@ -80,14 +80,6 @@ const theme = createTheme({
         },
       },
     },
-    MuiContainer: {
-      styleOverrides: {
-        root: {
-          paddingTop: "4rem",
-          paddingBottom: "4rem",
-        },
-      },
-    },
   },
 });
 
