@@ -1,4 +1,4 @@
-import { wilsonImages, courtYardImages } from "../constants";
+import { wilsonImages, courtYardImages, theLoftImages } from "../constants";
 
 export interface Venue {
   name?: string;
@@ -71,6 +71,11 @@ export interface Venues {
 
 export const venueJson: Venues = {
   venues: [
+    {
+      // name: "The Loft",
+      // route: "theloft",
+      images: theLoftImages,
+    },
     {
       name: "The Wilson Room",
       route: "thewilsonroom",
