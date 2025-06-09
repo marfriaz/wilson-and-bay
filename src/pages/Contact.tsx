@@ -16,6 +16,7 @@ import {
 } from "@mui/material";
 import EmailIcon from "@mui/icons-material/Email";
 import LocationOnIcon from "@mui/icons-material/LocationOn";
+import { venueJson } from "../components/VenueJson";
 
 const Contact: React.FC = () => {
   const [formData, setFormData] = useState({
@@ -112,8 +113,15 @@ const Contact: React.FC = () => {
                 onChange={handleSelectChange}
                 label="Space of Interest"
               >
-                <MenuItem value="The Wilson Room">The Wilson Room</MenuItem>
-                <MenuItem value="The Courtyard">The Courtyard</MenuItem>
+                {venueJson.venues.map(
+                  (venue) =>
+                    venue?.name &&
+                    venue?.route && (
+                      <MenuItem key={venue.route} value={venue.name}>
+                        {venue.name}
+                      </MenuItem>
+                    )
+                )}
               </Select>
             </FormControl>
             <TextField

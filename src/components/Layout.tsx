@@ -30,6 +30,7 @@ import EmailIcon from "@mui/icons-material/Email";
 import LocationOnIcon from "@mui/icons-material/LocationOn";
 import InstagramIcon from "@mui/icons-material/Instagram";
 import { Link as RouterLink, Outlet } from "react-router-dom";
+import { venueJson, Venue } from "./VenueJson";
 
 const Layout: React.FC = () => {
   const [spacesAnchorEl, setSpacesAnchorEl] = useState<null | HTMLElement>(
@@ -135,20 +136,21 @@ const Layout: React.FC = () => {
                     "aria-labelledby": "spaces-button",
                   }}
                 >
-                  <MenuItem
-                    onClick={handleSpacesClose}
-                    component={RouterLink}
-                    to="/thewilsonroom"
-                  >
-                    The Wilson Room
-                  </MenuItem>
-                  <MenuItem
-                    onClick={handleSpacesClose}
-                    component={RouterLink}
-                    to="/thecourtyard"
-                  >
-                    The Courtyard
-                  </MenuItem>
+                  {venueJson.venues.map(
+                    (venue: Venue) =>
+                      // Explicitly check if name and route are non-empty strings
+                      venue?.name &&
+                      venue?.route && (
+                        <MenuItem
+                          key={venue.route} // Use route as a unique key
+                          onClick={handleSpacesClose}
+                          component={RouterLink}
+                          to={`/${venue.route}`} // Link to the venue's route
+                        >
+                          {venue.name}
+                        </MenuItem>
+                      )
+                  )}
                 </Menu>
               </Box>
 
@@ -213,26 +215,23 @@ const Layout: React.FC = () => {
             {/* Conditionally render space links based on expanded state */}
             {spacesExpanded && (
               <>
-                <ListItemButton
-                  component={RouterLink}
-                  to="/thewilsonroom"
-                  onClick={toggleDrawer(false)}
-                  sx={{ pl: 4 }}
-                >
-                  <ListItemText primary="The Wilson Room" />
-                </ListItemButton>
-
-                <ListItemButton
-                  component={RouterLink}
-                  to="/thecourtyard"
-                  onClick={toggleDrawer(false)}
-                  sx={{ pl: 4 }}
-                >
-                  <ListItemText primary="The Courtyard" />
-                </ListItemButton>
+                {venueJson.venues.map(
+                  (venue: Venue) =>
+                    venue?.name &&
+                    venue?.route && (
+                      <ListItemButton
+                        key={venue?.route}
+                        component={RouterLink}
+                        to={`/${venue?.route}`}
+                        onClick={toggleDrawer(false)}
+                        sx={{ pl: 4 }}
+                      >
+                        <ListItemText primary={venue?.name} />
+                      </ListItemButton>
+                    )
+                )}
               </>
             )}
-
             <Divider sx={{ my: 1 }} />
 
             <ListItemButton
@@ -277,6 +276,7 @@ const Layout: React.FC = () => {
           px: { xs: 2, sm: 3 },
           borderTop: "1px solid",
           borderColor: "divider",
+          marginTop: "5px",
           display: "flex",
           flexDirection: { xs: "column", sm: "row" },
           justifyContent: "space-between",

@@ -3,11 +3,11 @@ import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
 import { ThemeProvider, CssBaseline } from "@mui/material";
 import Layout from "./components/Layout";
 import Home from "./pages/Home";
-import Space1 from "./pages/Space1";
-import Space2 from "./pages/Space2";
+import VenueTemplate from "./components/VenueTemplate"; // Assuming your dynamic venue component is here
 import Contact from "./pages/Contact";
 import Gallery from "./pages/Gallery";
 import theme from "./theme";
+import { venueJson } from "./components/VenueJson";
 
 const App: React.FC = () => {
   return (
@@ -17,8 +17,16 @@ const App: React.FC = () => {
         <Routes>
           <Route path="/" element={<Layout />}>
             <Route index element={<Home />} />
-            <Route path="thewilsonroom" element={<Space1 />} />
-            <Route path="thecourtyard" element={<Space2 />} />
+
+            {/* Map over venueJson.venues to create dynamic routes */}
+            {venueJson.venues.map((venue) => (
+              <Route
+                key={venue.route}
+                path={venue.route}
+                element={<VenueTemplate venue={venue} />}
+              />
+            ))}
+
             <Route path="gallery" element={<Gallery />} />
             <Route path="contact" element={<Contact />} />
           </Route>
