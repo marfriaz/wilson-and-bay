@@ -336,7 +336,7 @@ const VenueTemplate: React.FC<VenueTemplateProps> = ({ venue }) => {
 
         {/* Moved House Rules from Space1 */}
         {venue.house_rules?.length ? (
-          <Paper elevation={3} sx={{ p: 3, mt: 4, bgcolor: "#f8f8f8" }}>
+          <Paper elevation={3} sx={{ p: 3, mt: 4 }}>
             <Typography variant="h6" gutterBottom>
               House Rules
             </Typography>

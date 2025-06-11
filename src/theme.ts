@@ -2,81 +2,100 @@ import { createTheme } from "@mui/material/styles";
 
 const theme = createTheme({
   palette: {
-    mode: "light",
+    mode: "dark",
     primary: {
-      main: "#000000", // Black for headings, buttons, CTAs
-      contrastText: "#ffffff",
+      main: "#12585A", // Dark teal/blue
     },
     secondary: {
-      main: "#ffffff", // White background
-      contrastText: "#000000",
+      main: "#E6D0A9", // Light gold
     },
     background: {
-      default: "#ffffff",
-      paper: "#ffffff",
+      default: "#181818",
+      paper: "#122D36",
     },
     text: {
-      primary: "#000000", // Main body and headings
-      secondary: "#666666", // Subtext
+      primary: "#fff",
+      secondary: "#fff",
     },
-    divider: "#e0e0e0",
   },
   typography: {
-    fontFamily: "'Helvetica Neue', 'Inter', 'Arial', sans-serif",
+    fontFamily: '"Manrope", "Arial", sans-serif',
     h1: {
-      fontSize: "3.5rem",
-      fontWeight: 400,
-      letterSpacing: "-0.05em",
+      fontFamily: '"Oooh Baby", "cursive"',
+      fontWeight: 700,
+      color: "#fff",
     },
     h2: {
-      fontSize: "2.5rem",
-      fontWeight: 400,
-      letterSpacing: "-0.04em",
+      fontFamily: '"Oooh Baby", "cursive"',
+      fontWeight: 700,
+      color: "#fff",
     },
     h3: {
-      fontSize: "2rem",
       fontWeight: 400,
+      fontSize: "2rem",
+      letterSpacing: "1px",
     },
     body1: {
-      fontSize: "1.125rem",
-      fontWeight: 300,
-      lineHeight: 1.8,
-    },
-    body2: {
       fontSize: "1rem",
-      fontWeight: 300,
-    },
-    button: {
-      fontWeight: 500,
-      fontSize: "0.95rem",
-      textTransform: "uppercase",
+      lineHeight: 1.8,
       letterSpacing: "0.05em",
     },
-  },
-  shape: {
-    borderRadius: 0, // Very clean edges
+    button: {
+      textTransform: "uppercase",
+      fontWeight: 400,
+      fontSize: "1rem",
+      letterSpacing: "1px",
+    },
   },
   components: {
     MuiButton: {
       styleOverrides: {
         root: {
           borderRadius: 0,
-          padding: "0.75rem 2rem",
-          border: "1px solid #000",
-          backgroundColor: "#000",
+          transition: "all 0.4s",
+          padding: "10px 20px",
+        },
+        containedPrimary: {
+          backgroundColor: "#12585A",
           color: "#fff",
           "&:hover": {
-            backgroundColor: "#111",
+            backgroundColor: "#0c3d3e",
+          },
+        },
+        outlinedPrimary: {
+          color: "#fff",
+          borderColor: "#fff",
+          "&:hover": {
+            borderColor: "#E6D0A9",
+            backgroundColor: "transparent",
           },
         },
       },
     },
-    MuiCard: {
+    MuiPaper: {
       styleOverrides: {
         root: {
+          backgroundColor: "#122D36",
+          // Remove the shadow
           boxShadow: "none",
-          borderRadius: 0,
-          border: "1px solid #e0e0e0",
+          // Remove the overlay for dark mode
+          backgroundImage: "none",
+        },
+      },
+      // If you are explicitly using the `elevation` prop, you might also need this:
+      variants: [
+        {
+          props: { elevation: 0 },
+          style: {
+            "--Paper-overlay": "none",
+          },
+        },
+      ],
+    },
+    MuiTypography: {
+      styleOverrides: {
+        root: {
+          color: "#fff",
         },
       },
     },

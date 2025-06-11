@@ -1,7 +1,10 @@
 import React from "react";
 import { Box, Typography, Button, Container } from "@mui/material";
+import { useNavigate } from "react-router-dom";
 
 const Home: React.FC = () => {
+  const navigate = useNavigate();
+
   return (
     <Box>
       {/* Hero Section */}
@@ -17,7 +20,7 @@ const Home: React.FC = () => {
       >
         <Box
           component="img"
-          src="https://firebasestorage.googleapis.com/v0/b/wilsonandbay.firebasestorage.app/o/wilsonRoom%2F932WilsonSt-44-edited-cropped.jpeg?alt=media"
+          src="https://firebasestorage.googleapis.com/v0/b/wilsonandbay.firebasestorage.app/o/banners%2F1.jpeg?alt=media"
           alt="Wilson&Bay Venue"
           sx={{
             width: "100%",
@@ -34,7 +37,6 @@ const Home: React.FC = () => {
             right: 0,
             bottom: 0,
             display: "flex",
-            flexDirection: "column",
             justifyContent: "center",
             alignItems: "center",
             color: "#fff",
@@ -43,57 +45,25 @@ const Home: React.FC = () => {
           }}
         >
           <Typography
-            variant="h1"
-            component="h1"
+            variant="h2"
+            component="h2"
             sx={{
               fontWeight: "bold",
               fontSize: { xs: "2.5rem", md: "4rem" },
-              mb: 1, // reduced from 2
               textShadow: "2px 2px 8px rgba(0,0,0,0.8)",
             }}
           >
             Wilson&Bay
           </Typography>
-          <Typography
-            variant="h5"
-            sx={{
-              mb: 2, // reduced from 4
-              maxWidth: 600,
-              fontWeight: 300,
-              fontSize: { xs: "1rem", md: "1.5rem" },
-              textShadow: "1px 1px 6px rgba(0,0,0,0.7)",
-            }}
-          >
-            A spacious, multipurpose creative venue located in the DTLA Arts
-            District. Available for buyouts, pop ups, private parties, & more!
-          </Typography>
-          <Button
-            variant="contained"
-            color="primary"
-            size="large"
-            sx={{
-              px: 5,
-              py: 1.5,
-              fontSize: { xs: "0.9rem", md: "1.2rem" },
-              fontWeight: "bold",
-              borderRadius: 0,
-              boxShadow: "0 5px 15px rgba(0,0,0,0.3)",
-            }}
-            onClick={() => (window.location.href = "/contact")}
-          >
-            Book Now
-          </Button>
         </Box>
       </Box>
 
       {/* About Section */}
       <Container maxWidth="md" sx={{ my: 4, px: 2 }}>
-        {" "}
-        {/* reduced my from 8 */}
         <Typography
-          variant="h4"
+          variant="h2"
           gutterBottom
-          sx={{ fontWeight: "bold", mb: 2 }} // reduced mb from 3
+          sx={{ fontWeight: "bold", mb: 2, textAlign: "center" }}
         >
           About us
         </Typography>
@@ -107,6 +77,24 @@ const Home: React.FC = () => {
           pop-up shop, workshop, or any special event, our venue adapts to fit
           your vision.
         </Typography>
+
+        {/* View Gallery Button */}
+        <Box sx={{ mt: 4, textAlign: "center" }}>
+          <Button
+            variant="outlined"
+            size="large"
+            onClick={() => navigate("/gallery")}
+            sx={{
+              px: 5,
+              py: 1.5,
+              fontWeight: "bold",
+              fontSize: { xs: "0.9rem", md: "1.1rem" },
+              borderRadius: 0,
+            }}
+          >
+            View our gallery
+          </Button>
+        </Box>
       </Container>
     </Box>
   );

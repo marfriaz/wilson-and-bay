@@ -13,9 +13,13 @@ import {
   Grid,
   Paper,
   Divider,
+  Link,
 } from "@mui/material";
 import EmailIcon from "@mui/icons-material/Email";
 import LocationOnIcon from "@mui/icons-material/LocationOn";
+import InstagramIcon from "@mui/icons-material/Instagram";
+import StorefrontIcon from "@mui/icons-material/Storefront"; // Changed from OpenInNewIcon
+
 import { venueJson } from "../components/VenueJson";
 
 const Contact: React.FC = () => {
@@ -71,6 +75,33 @@ const Contact: React.FC = () => {
               <LocationOnIcon sx={{ mr: 1 }} />
               <Typography>932 Wilson Street, Los Angeles, CA 90021</Typography>
             </Box>
+
+            {/* Instagram Link */}
+            <Link
+              href="https://www.instagram.com/wilsonbay.dtla"
+              target="_blank"
+              rel="noopener noreferrer"
+              underline="hover"
+              color="inherit"
+              sx={{ display: "flex", alignItems: "center", gap: 0.5, mb: 2 }}
+            >
+              <InstagramIcon fontSize="small" />
+              @wilsonbay.dtla
+            </Link>
+
+            {/* Peerspace Link with updated icon */}
+            <Link
+              href="https://www.peerspace.com/pages/listings/66281ae02de482ca77c71015"
+              target="_blank"
+              rel="noopener noreferrer"
+              underline="hover"
+              color="inherit"
+              sx={{ display: "flex", alignItems: "center", gap: 0.5, mb: 2 }}
+            >
+              <StorefrontIcon fontSize="small" /> {/* Changed icon here */}
+              Peerspace listing
+            </Link>
+
             <Divider sx={{ my: 2 }} />
             <Typography variant="body2" color="text.secondary">
               We typically respond within 24 hours. Feel free to reach out with

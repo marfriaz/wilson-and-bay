@@ -14,6 +14,7 @@ import {
   Tab,
   useTheme,
   useMediaQuery,
+  Container,
 } from "@mui/material";
 import { Close, ArrowBackIos, ArrowForwardIos } from "@mui/icons-material";
 import { galleryData } from "../constants";
@@ -87,170 +88,174 @@ const Gallery: React.FC = () => {
   };
 
   return (
-    <>
-      <Typography variant="h3" gutterBottom>
-        Gallery
-      </Typography>
+    <Box>
+      <Container maxWidth="lg" sx={{ pt: 4 }}>
+        <Typography variant="h2" gutterBottom sx={{ mb: 3 }}>
+          Gallery
+        </Typography>
 
-      <Box sx={{ borderBottom: 1, borderColor: "divider", mb: 4 }}>
-        <Tabs
-          value={filter}
-          onChange={handleFilterChange}
-          aria-label="gallery filters"
-          centered
-        >
-          <Tab label="All Spaces" value="all" />
-          <Tab label="The Wilson Room" value="wilson" />
-          <Tab label="The Courtyard" value="courtyard" />
-        </Tabs>
-      </Box>
+        <Box sx={{ borderBottom: 1, borderColor: "divider", mb: 4 }}>
+          <Tabs
+            value={filter}
+            onChange={handleFilterChange}
+            aria-label="gallery filters"
+            centered
+          >
+            <Tab label="All Spaces" value="all" />
+            <Tab label="The Wilson Room" value="wilson" />
+            <Tab label="The Courtyard" value="courtyard" />
+          </Tabs>
+        </Box>
 
-      <Grid container spacing={2}>
-        {filteredImages.map((item, index) => (
-          <Grid item key={item.id} xs={12} sm={6} md={4}>
-            <Card
-              sx={{
-                cursor: "pointer",
-                transition: "transform 0.3s",
-                "&:hover": {
-                  transform: "scale(1.02)",
-                  boxShadow: 3,
-                },
-              }}
-              onClick={() => handleImageClick(index)}
-            >
-              <CardMedia
-                component="img"
-                height="220"
-                image={item.src}
-                alt={item.alt}
-              />
-            </Card>
-          </Grid>
-        ))}
-      </Grid>
+        <Grid container spacing={2}>
+          {filteredImages.map((item, index) => (
+            <Grid item key={item.id} xs={12} sm={6} md={4}>
+              <Card
+                sx={{
+                  cursor: "pointer",
+                  transition: "transform 0.3s",
+                  "&:hover": {
+                    transform: "scale(1.02)",
+                    boxShadow: 3,
+                  },
+                }}
+                onClick={() => handleImageClick(index)}
+              >
+                <CardMedia
+                  component="img"
+                  height="220"
+                  image={item.src}
+                  alt={item.alt}
+                />
+              </Card>
+            </Grid>
+          ))}
+        </Grid>
 
-      {/* Improved Lightbox Dialog matching ImageGallery */}
-      <Dialog
-        open={currentImageIndex !== null}
-        onClose={handleClose}
-        fullScreen={isMobile}
-        PaperProps={{
-          sx: {
-            bgcolor: "#000",
-            width: isMobile ? "100%" : "80%",
-            height: isMobile ? "100%" : "80%",
-            maxWidth: "none",
-            borderRadius: isMobile ? 0 : 2,
-            m: isMobile ? 0 : 2,
-            overflow: "hidden",
-          },
-        }}
-      >
-        <Box
-          sx={{
-            width: "100%",
-            height: "100%",
-            position: "relative",
-            display: "flex",
-            alignItems: "center",
-            justifyContent: "center",
-            bgcolor: "#000",
+        {/* Improved Lightbox Dialog matching ImageGallery */}
+        <Dialog
+          open={currentImageIndex !== null}
+          onClose={handleClose}
+          fullScreen={isMobile}
+          PaperProps={{
+            sx: {
+              bgcolor: "#000",
+              width: isMobile ? "100%" : "80%",
+              height: isMobile ? "100%" : "80%",
+              maxWidth: "none",
+              borderRadius: isMobile ? 0 : 2,
+              m: isMobile ? 0 : 2,
+              overflow: "hidden",
+            },
           }}
-          onTouchStart={handleTouchStart}
-          onTouchMove={handleTouchMove}
-          onTouchEnd={handleTouchEnd}
         >
-          <IconButton
-            onClick={handleClose}
+          <Box
             sx={{
-              position: "absolute",
-              top: 16,
-              right: 16,
-              zIndex: 10,
-              color: "white",
-              bgcolor: "rgba(0,0,0,0.5)",
-              "&:hover": { bgcolor: "rgba(0,0,0,0.7)" },
-              width: isMobile ? 40 : 36,
-              height: isMobile ? 40 : 36,
+              width: "100%",
+              height: "100%",
+              position: "relative",
+              display: "flex",
+              alignItems: "center",
+              justifyContent: "center",
+              bgcolor: "#000",
             }}
+            onTouchStart={handleTouchStart}
+            onTouchMove={handleTouchMove}
+            onTouchEnd={handleTouchEnd}
           >
-            <Close />
-          </IconButton>
-
-          {/* Arrows - larger on mobile for better touch targets */}
-          <IconButton
-            onClick={handlePrevious}
-            sx={{
-              position: "absolute",
-              top: "50%",
-              left: 16,
-              zIndex: 10,
-              color: "white",
-              bgcolor: "rgba(0,0,0,0.5)",
-              "&:hover": { bgcolor: "rgba(0,0,0,0.7)" },
-              transform: "translateY(-50%)",
-              width: isMobile ? 48 : 36,
-              height: isMobile ? 48 : 36,
-            }}
-          >
-            <ArrowBackIos />
-          </IconButton>
-
-          <IconButton
-            onClick={handleNext}
-            sx={{
-              position: "absolute",
-              top: "50%",
-              right: 16,
-              zIndex: 10,
-              color: "white",
-              bgcolor: "rgba(0,0,0,0.5)",
-              "&:hover": { bgcolor: "rgba(0,0,0,0.7)" },
-              transform: "translateY(-50%)",
-              width: isMobile ? 48 : 36,
-              height: isMobile ? 48 : 36,
-            }}
-          >
-            <ArrowForwardIos />
-          </IconButton>
-
-          {/* Image Counter for Mobile */}
-          {isMobile && currentImageIndex !== null && (
-            <Box
+            <IconButton
+              onClick={handleClose}
               sx={{
                 position: "absolute",
                 top: 16,
-                left: 16,
-                bgcolor: "rgba(0,0,0,0.5)",
+                right: 16,
+                zIndex: 10,
                 color: "white",
-                px: 2,
-                py: 0.5,
-                borderRadius: 10,
-                zIndex: 5,
+                bgcolor: "rgba(0,0,0,0.5)",
+                "&:hover": { bgcolor: "rgba(0,0,0,0.7)" },
+                width: isMobile ? 40 : 36,
+                height: isMobile ? 40 : 36,
               }}
             >
-              <Typography variant="body2">
-                {currentImageIndex + 1} / {filteredImages.length}
-              </Typography>
-            </Box>
-          )}
+              <Close />
+            </IconButton>
 
-          {currentImageIndex !== null && (
-            <img
-              src={filteredImages[currentImageIndex]?.src || "/placeholder.svg"}
-              alt={filteredImages[currentImageIndex]?.alt || "Gallery image"}
-              style={{
-                maxWidth: "100%",
-                maxHeight: "100%",
-                objectFit: "contain",
-                display: "block",
+            {/* Arrows - larger on mobile for better touch targets */}
+            <IconButton
+              onClick={handlePrevious}
+              sx={{
+                position: "absolute",
+                top: "50%",
+                left: 16,
+                zIndex: 10,
+                color: "white",
+                bgcolor: "rgba(0,0,0,0.5)",
+                "&:hover": { bgcolor: "rgba(0,0,0,0.7)" },
+                transform: "translateY(-50%)",
+                width: isMobile ? 48 : 36,
+                height: isMobile ? 48 : 36,
               }}
-            />
-          )}
-        </Box>
-      </Dialog>
-    </>
+            >
+              <ArrowBackIos />
+            </IconButton>
+
+            <IconButton
+              onClick={handleNext}
+              sx={{
+                position: "absolute",
+                top: "50%",
+                right: 16,
+                zIndex: 10,
+                color: "white",
+                bgcolor: "rgba(0,0,0,0.5)",
+                "&:hover": { bgcolor: "rgba(0,0,0,0.7)" },
+                transform: "translateY(-50%)",
+                width: isMobile ? 48 : 36,
+                height: isMobile ? 48 : 36,
+              }}
+            >
+              <ArrowForwardIos />
+            </IconButton>
+
+            {/* Image Counter for Mobile */}
+            {isMobile && currentImageIndex !== null && (
+              <Box
+                sx={{
+                  position: "absolute",
+                  top: 16,
+                  left: 16,
+                  bgcolor: "rgba(0,0,0,0.5)",
+                  color: "white",
+                  px: 2,
+                  py: 0.5,
+                  borderRadius: 10,
+                  zIndex: 5,
+                }}
+              >
+                <Typography variant="body2">
+                  {currentImageIndex + 1} / {filteredImages.length}
+                </Typography>
+              </Box>
+            )}
+
+            {currentImageIndex !== null && (
+              <img
+                src={
+                  filteredImages[currentImageIndex]?.src || "/placeholder.svg"
+                }
+                alt={filteredImages[currentImageIndex]?.alt || "Gallery image"}
+                style={{
+                  maxWidth: "100%",
+                  maxHeight: "100%",
+                  objectFit: "contain",
+                  display: "block",
+                }}
+              />
+            )}
+          </Box>
+        </Dialog>
+      </Container>
+    </Box>
   );
 };
 

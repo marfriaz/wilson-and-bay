@@ -25,6 +25,7 @@ import {
   KeyboardArrowDown,
   KeyboardArrowUp,
   Menu as MenuIcon,
+  Storefront as StorefrontIcon,
 } from "@mui/icons-material";
 import EmailIcon from "@mui/icons-material/Email";
 import LocationOnIcon from "@mui/icons-material/LocationOn";
@@ -78,7 +79,9 @@ const Layout: React.FC = () => {
             sx={{
               textDecoration: "none",
               color: "inherit",
-              fontSize: { xs: "1.1rem", sm: "1.25rem" },
+              // fontSize: { xs: "1.1rem", sm: "1.25rem" },
+              fontFamily: '"Oooh Baby", "cursive"', // Added font family
+              fontWeight: "bold", // Added for bold text
             }}
           >
             Wilson&Bay
@@ -317,6 +320,18 @@ const Layout: React.FC = () => {
         >
           <InstagramIcon fontSize="small" />
           @wilsonbay.dtla
+        </Link>
+
+        <Link
+          href="https://www.peerspace.com/pages/listings/66281ae02de482ca77c71015"
+          target="_blank"
+          rel="noopener noreferrer"
+          underline="hover"
+          color="inherit"
+          sx={{ display: "flex", alignItems: "center", gap: 0.5 }}
+        >
+          <StorefrontIcon fontSize="small" />
+          Peerspace listing
         </Link>
       </Box>
     </Box>
