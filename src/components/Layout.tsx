@@ -88,7 +88,12 @@ const Layout: React.FC = () => {
           </Typography>
 
           {isMobile ? (
-            <IconButton edge="end" color="inherit" onClick={toggleDrawer(true)}>
+            <IconButton
+              edge="end"
+              color="inherit"
+              onClick={toggleDrawer(true)}
+              sx={{ mr: 1, p: 1.5 }}
+            >
               <MenuIcon />
             </IconButton>
           ) : (
@@ -281,11 +286,12 @@ const Layout: React.FC = () => {
           borderColor: "divider",
           marginTop: "5px",
           display: "flex",
-          flexDirection: { xs: "column", sm: "row" },
-          justifyContent: "space-between",
+          flexDirection: { xs: "row", sm: "row" },
+          justifyContent: "space-around",
           alignItems: "center",
           gap: 2,
           fontSize: "0.9rem",
+          flexWrap: "wrap",
         }}
       >
         <Link
@@ -295,7 +301,9 @@ const Layout: React.FC = () => {
           sx={{ display: "flex", alignItems: "center", gap: 1 }}
         >
           <EmailIcon fontSize="small" />
-          932wilson@gmail.com
+          <Box sx={{ display: { xs: "none", sm: "inline" } }}>
+            932wilson@gmail.com
+          </Box>
         </Link>
 
         <Link
@@ -307,7 +315,9 @@ const Layout: React.FC = () => {
           sx={{ display: "flex", alignItems: "center", gap: 1 }}
         >
           <LocationOnIcon fontSize="small" />
-          932 Wilson Street, Los Angeles, CA 90021
+          <Box sx={{ display: { xs: "none", sm: "inline" } }}>
+            932 Wilson Street, Los Angeles, CA 90021
+          </Box>
         </Link>
 
         <Link
@@ -319,7 +329,9 @@ const Layout: React.FC = () => {
           sx={{ display: "flex", alignItems: "center", gap: 0.5 }}
         >
           <InstagramIcon fontSize="small" />
-          @wilsonbay.dtla
+          <Box sx={{ display: { xs: "none", sm: "inline" } }}>
+            @wilsonbay.dtla
+          </Box>
         </Link>
 
         <Link
@@ -331,7 +343,9 @@ const Layout: React.FC = () => {
           sx={{ display: "flex", alignItems: "center", gap: 0.5 }}
         >
           <StorefrontIcon fontSize="small" />
-          Peerspace listing
+          <Box sx={{ display: { xs: "none", sm: "inline" } }}>
+            Peerspace listing
+          </Box>
         </Link>
       </Box>
     </Box>

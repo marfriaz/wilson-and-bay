@@ -46,7 +46,14 @@ const VenueTemplate: React.FC<VenueTemplateProps> = ({ venue }) => {
   return (
     <Box>
       <Container maxWidth="lg" sx={{ pt: 4 }}>
-        <Typography variant="h2" gutterBottom sx={{ mb: 3 }}>
+        <Typography
+          variant="h2"
+          gutterBottom
+          sx={{
+            mb: 3,
+            fontSize: { xs: "1.75rem", sm: "2.5rem", md: "3rem" },
+          }}
+        >
           {venue.name}
         </Typography>
 
