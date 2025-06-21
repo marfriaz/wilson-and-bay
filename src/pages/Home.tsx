@@ -12,10 +12,10 @@ const Home: React.FC = () => {
         sx={{
           position: "relative",
           height: { xs: "60vh", md: "80vh" },
-          width: { xs: "100%", md: "100vw" },
+          width: "100vw",
           overflow: "hidden",
-          marginLeft: { xs: 0, md: "calc(-50vw + 50%)" },
-          marginRight: { xs: 0, md: "calc(-50vw + 50%)" },
+          marginLeft: "calc(-50vw + 50%)",
+          marginRight: "calc(-50vw + 50%)",
         }}
       >
         <Box
