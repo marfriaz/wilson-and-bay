@@ -90,7 +90,14 @@ const Gallery: React.FC = () => {
   return (
     <Box>
       <Container maxWidth="lg" sx={{ pt: 4 }}>
-        <Typography variant="h2" gutterBottom sx={{ mb: 3 }}>
+        <Typography
+          variant="h2"
+          gutterBottom
+          sx={{
+            mb: 3,
+            fontSize: { xs: "1.75rem", sm: "2.5rem", md: "3rem" },
+          }}
+        >
           Gallery
         </Typography>
 
@@ -99,7 +106,17 @@ const Gallery: React.FC = () => {
             value={filter}
             onChange={handleFilterChange}
             aria-label="gallery filters"
-            centered
+            centered={!isMobile}
+            variant={isMobile ? "scrollable" : "standard"}
+            scrollButtons={isMobile ? "auto" : false}
+            allowScrollButtonsMobile={isMobile}
+            sx={{
+              "& .MuiTab-root": {
+                minWidth: isMobile ? 120 : "auto",
+                fontSize: isMobile ? "0.875rem" : "1rem",
+                padding: isMobile ? "12px 16px" : "12px 24px",
+              },
+            }}
           >
             <Tab label="All Spaces" value="all" />
             <Tab label="The Wilson Room" value="wilson" />
