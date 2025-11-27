@@ -143,6 +143,7 @@ const Gallery: React.FC = () => {
                   height="220"
                   image={item.src}
                   alt={item.alt}
+                  loading="lazy"
                 />
               </Card>
             </Grid>

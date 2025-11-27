@@ -92,6 +92,7 @@ const ImageGallery: React.FC<ImageGalleryProps> = ({ images }) => {
               src={images[0]?.src || "/placeholder.svg"}
               alt={images[0]?.alt}
               onClick={() => handleOpen(0)}
+              loading="eager"
               sx={{
                 width: "100%",
                 height: "auto",
@@ -141,6 +142,7 @@ const ImageGallery: React.FC<ImageGalleryProps> = ({ images }) => {
                 src={images[0]?.src || "/placeholder.svg"}
                 alt={images[0]?.alt}
                 onClick={() => handleOpen(0)}
+                loading="eager"
                 sx={{
                   width: "100%",
                   height: "100%",
@@ -159,6 +161,7 @@ const ImageGallery: React.FC<ImageGalleryProps> = ({ images }) => {
                     src={img.src}
                     alt={img.alt}
                     onClick={() => handleOpen(index + 1)}
+                    loading="lazy"
                     sx={{
                       width: "100%",
                       height: "100%",
