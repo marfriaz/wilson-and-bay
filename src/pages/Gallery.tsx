@@ -23,6 +23,7 @@ import Grid2 from "@mui/material/Grid2";
 import { Close, ArrowBackIos, ArrowForwardIos } from "@mui/icons-material";
 import { galleryData } from "../constants";
 import LoadableImage from "../components/LoadableImage";
+import InstagramEmbed from "../components/InstagramEmbed";
 import { useKeyboardNavigation } from "../hooks/useKeyboardNavigation";
 
 const Gallery: React.FC = () => {
@@ -227,6 +228,7 @@ const Gallery: React.FC = () => {
                 <MenuItem value="all">All Spaces</MenuItem>
                 <MenuItem value="wilson">The Wilson Room</MenuItem>
                 <MenuItem value="courtyard">The Courtyard</MenuItem>
+                <MenuItem value="instagram">Instagram (All Spaces)</MenuItem>
               </Select>
             </FormControl>
           </Box>
@@ -241,11 +243,14 @@ const Gallery: React.FC = () => {
               <Tab label="All Spaces" value="all" />
               <Tab label="The Wilson Room" value="wilson" />
               <Tab label="The Courtyard" value="courtyard" />
+              <Tab label="Instagram (All Spaces)" value="instagram" />
             </Tabs>
           </Box>
         )}
 
-        {isTransitioning ? (
+        {filter === "instagram" ? (
+          <InstagramEmbed />
+        ) : isTransitioning ? (
           <Box
             sx={{
               display: "flex",
