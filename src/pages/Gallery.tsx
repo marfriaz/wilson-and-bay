@@ -14,6 +14,10 @@ import {
   useMediaQuery,
   Container,
   CircularProgress,
+  Select,
+  MenuItem,
+  FormControl,
+  InputLabel,
 } from "@mui/material";
 import Grid2 from "@mui/material/Grid2";
 import { Close, ArrowBackIos, ArrowForwardIos } from "@mui/icons-material";
@@ -209,28 +213,37 @@ const Gallery: React.FC = () => {
           Gallery
         </Typography>
 
-        <Box sx={{ borderBottom: 1, borderColor: "divider", mb: 4 }}>
-          <Tabs
-            value={filter}
-            onChange={handleFilterChange}
-            aria-label="gallery filters"
-            centered={!isMobile}
-            variant={isMobile ? "scrollable" : "standard"}
-            scrollButtons={isMobile ? "auto" : false}
-            allowScrollButtonsMobile={isMobile}
-            sx={{
-              "& .MuiTab-root": {
-                minWidth: isMobile ? 120 : "auto",
-                fontSize: isMobile ? "0.875rem" : "1rem",
-                padding: isMobile ? "12px 16px" : "12px 24px",
-              },
-            }}
-          >
-            <Tab label="All Spaces" value="all" />
-            <Tab label="The Wilson Room" value="wilson" />
-            <Tab label="The Courtyard" value="courtyard" />
-          </Tabs>
-        </Box>
+        {isMobile ? (
+          <Box sx={{ mb: 4 }}>
+            <FormControl fullWidth>
+              <InputLabel id="gallery-filter-label">Filter by Space</InputLabel>
+              <Select
+                labelId="gallery-filter-label"
+                id="gallery-filter-select"
+                value={filter}
+                label="Filter by Space"
+                onChange={(e) => setFilter(e.target.value)}
+              >
+                <MenuItem value="all">All Spaces</MenuItem>
+                <MenuItem value="wilson">The Wilson Room</MenuItem>
+                <MenuItem value="courtyard">The Courtyard</MenuItem>
+              </Select>
+            </FormControl>
+          </Box>
+        ) : (
+          <Box sx={{ borderBottom: 1, borderColor: "divider", mb: 4 }}>
+            <Tabs
+              value={filter}
+              onChange={handleFilterChange}
+              aria-label="gallery filters"
+              centered
+            >
+              <Tab label="All Spaces" value="all" />
+              <Tab label="The Wilson Room" value="wilson" />
+              <Tab label="The Courtyard" value="courtyard" />
+            </Tabs>
+          </Box>
+        )}
 
         {isTransitioning ? (
           <Box
