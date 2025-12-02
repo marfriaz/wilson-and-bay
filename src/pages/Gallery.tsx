@@ -1,13 +1,11 @@
 "use client";
 
 import type React from "react";
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import {
   Typography,
-  Grid,
   Box,
   Card,
-  CardMedia,
   Dialog,
   IconButton,
   Tabs,
@@ -15,22 +13,23 @@ import {
   useTheme,
   useMediaQuery,
   Container,
+  CircularProgress,
 } from "@mui/material";
+import Grid2 from "@mui/material/Grid2";
 import { Close, ArrowBackIos, ArrowForwardIos } from "@mui/icons-material";
 import { galleryData } from "../constants";
+import LoadableImage from "../components/LoadableImage";
+import { useKeyboardNavigation } from "../hooks/useKeyboardNavigation";
 
 const Gallery: React.FC = () => {
   const [currentImageIndex, setCurrentImageIndex] = useState<number | null>(
     null
   );
   const [filter, setFilter] = useState("all");
+  const [isTransitioning, setIsTransitioning] = useState(false);
+  const [filteredImages, setFilteredImages] = useState(galleryData);
   const theme = useTheme();
   const isMobile = useMediaQuery(theme.breakpoints.down("sm"));
-
-  const filteredImages =
-    filter === "all"
-      ? galleryData
-      : galleryData.filter((item) => item.space === filter);
 
   const handleImageClick = (index: number) => {
     setCurrentImageIndex(index);
@@ -40,8 +39,31 @@ const Gallery: React.FC = () => {
     setCurrentImageIndex(null);
   };
 
+  // Handle filter changes with proper state management
+  useEffect(() => {
+    // Clear previous images immediately
+    setFilteredImages([]);
+    setIsTransitioning(true);
+
+    // Close lightbox when filter changes
+    setCurrentImageIndex(null);
+
+    // Simulate async filtering (in real app, this might be an API call)
+    const timer = setTimeout(() => {
+      const newFilteredImages =
+        filter === "all"
+          ? galleryData
+          : galleryData.filter((item) => item.space === filter);
+
+      setFilteredImages(newFilteredImages);
+      setIsTransitioning(false);
+    }, 100); // Small delay to show loading state
+
+    return () => clearTimeout(timer);
+  }, [filter]);
+
   const handleFilterChange = (
-    event: React.SyntheticEvent,
+    _event: React.SyntheticEvent,
     newValue: string
   ) => {
     setFilter(newValue);
@@ -62,6 +84,28 @@ const Gallery: React.FC = () => {
       return prevIndex === filteredImages.length - 1 ? 0 : prevIndex + 1;
     });
   };
+
+  const handleFirst = () => {
+    if (filteredImages.length > 0) {
+      setCurrentImageIndex(0);
+    }
+  };
+
+  const handleLast = () => {
+    if (filteredImages.length > 0) {
+      setCurrentImageIndex(filteredImages.length - 1);
+    }
+  };
+
+  // Integrate keyboard navigation hook
+  useKeyboardNavigation({
+    isActive: currentImageIndex !== null,
+    onNext: handleNext,
+    onPrevious: handlePrevious,
+    onClose: handleClose,
+    onFirst: handleFirst,
+    onLast: handleLast,
+  });
 
   // Handle touch swipe for mobile
   const [touchStart, setTouchStart] = useState(0);
@@ -124,46 +168,74 @@ const Gallery: React.FC = () => {
           </Tabs>
         </Box>
 
-        <Grid container spacing={2}>
-          {filteredImages.map((item, index) => (
-            <Grid item key={item.id} xs={12} sm={6} md={4}>
-              <Card
-                sx={{
-                  cursor: "pointer",
-                  transition: "transform 0.3s",
-                  "&:hover": {
-                    transform: "scale(1.02)",
-                    boxShadow: 3,
-                  },
-                }}
-                onClick={() => handleImageClick(index)}
-              >
-                <CardMedia
-                  component="img"
-                  height="220"
-                  image={item.src}
-                  alt={item.alt}
-                  loading="lazy"
-                />
-              </Card>
-            </Grid>
-          ))}
-        </Grid>
+        {isTransitioning ? (
+          <Box
+            sx={{
+              display: "flex",
+              justifyContent: "center",
+              alignItems: "center",
+              minHeight: "400px",
+            }}
+          >
+            <CircularProgress size={60} />
+          </Box>
+        ) : (
+          <Grid2 container spacing={2}>
+            {filteredImages.map((item, index) => (
+              <Grid2 key={item.id} size={{ xs: 12, sm: 6, md: 4 }}>
+                <Card
+                  tabIndex={0}
+                  onKeyDown={(e) => {
+                    if (e.key === "Enter" || e.key === " ") {
+                      e.preventDefault();
+                      handleImageClick(index);
+                    }
+                  }}
+                  sx={{
+                    cursor: "pointer",
+                    transition: "transform 0.3s",
+                    "&:hover": {
+                      transform: "scale(1.02)",
+                      boxShadow: 3,
+                    },
+                    "&:focus": {
+                      outline: `3px solid ${theme.palette.primary.main}`,
+                      outlineOffset: "2px",
+                    },
+                    overflow: "hidden",
+                  }}
+                >
+                  <LoadableImage
+                    src={item.src}
+                    alt={item.alt}
+                    onClick={() => handleImageClick(index)}
+                    loading="lazy"
+                    aspectRatio={220 / 220}
+                    borderRadius={0}
+                    sx={{ height: 220 }}
+                  />
+                </Card>
+              </Grid2>
+            ))}
+          </Grid2>
+        )}
 
         {/* Improved Lightbox Dialog matching ImageGallery */}
         <Dialog
           open={currentImageIndex !== null}
           onClose={handleClose}
           fullScreen={isMobile}
-          PaperProps={{
-            sx: {
-              bgcolor: "#000",
-              width: isMobile ? "100%" : "80%",
-              height: isMobile ? "100%" : "80%",
-              maxWidth: "none",
-              borderRadius: isMobile ? 0 : 2,
-              m: isMobile ? 0 : 2,
-              overflow: "hidden",
+          slotProps={{
+            paper: {
+              sx: {
+                bgcolor: "#000",
+                width: isMobile ? "100%" : "80%",
+                height: isMobile ? "100%" : "80%",
+                maxWidth: "none",
+                borderRadius: isMobile ? 0 : 2,
+                m: isMobile ? 0 : 2,
+                overflow: "hidden",
+              },
             },
           }}
         >

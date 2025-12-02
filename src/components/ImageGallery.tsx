@@ -7,7 +7,7 @@ import {
   IconButton,
   Dialog,
   DialogContent,
-  Grid,
+  Grid2,
   Typography,
   Button,
   useTheme,
@@ -19,6 +19,8 @@ import {
   Close,
   Image,
 } from "@mui/icons-material";
+import LoadableImage from "./LoadableImage";
+import { useKeyboardNavigation } from "../hooks/useKeyboardNavigation";
 
 interface ImageGalleryProps {
   images: {
@@ -56,6 +58,24 @@ const ImageGallery: React.FC<ImageGalleryProps> = ({ images }) => {
     );
   };
 
+  const handleFirst = () => {
+    setCurrentIndex(0);
+  };
+
+  const handleLast = () => {
+    setCurrentIndex(images.length - 1);
+  };
+
+  // Integrate keyboard navigation hook
+  useKeyboardNavigation({
+    isActive: open,
+    onNext: handleNext,
+    onPrevious: handlePrevious,
+    onClose: handleClose,
+    onFirst: handleFirst,
+    onLast: handleLast,
+  });
+
   // Handle touch swipe for mobile
   const [touchStart, setTouchStart] = useState(0);
   const [touchEnd, setTouchEnd] = useState(0);
@@ -87,20 +107,13 @@ const ImageGallery: React.FC<ImageGalleryProps> = ({ images }) => {
         {isMobile ? (
           // Mobile layout - simplified grid
           <Box sx={{ position: "relative" }}>
-            <Box
-              component="img"
+            <LoadableImage
               src={images[0]?.src || "/placeholder.svg"}
               alt={images[0]?.alt}
               onClick={() => handleOpen(0)}
               loading="eager"
-              sx={{
-                width: "100%",
-                height: "auto",
-                aspectRatio: "4/3",
-                objectFit: "cover",
-                cursor: "pointer",
-                borderRadius: 2,
-              }}
+              aspectRatio={4 / 3}
+              borderRadius={2}
             />
             <Button
               variant="contained"
@@ -135,48 +148,68 @@ const ImageGallery: React.FC<ImageGalleryProps> = ({ images }) => {
           </Box>
         ) : (
           // Desktop layout - grid with main image and thumbnails
-          <Grid container spacing={1}>
-            <Grid item xs={12} sm={6}>
+          <Grid2 container spacing={1}>
+            <Grid2 size={{ xs: 12, sm: 6 }}>
               <Box
-                component="img"
-                src={images[0]?.src || "/placeholder.svg"}
-                alt={images[0]?.alt}
-                onClick={() => handleOpen(0)}
-                loading="eager"
-                sx={{
-                  width: "100%",
-                  height: "100%",
-                  aspectRatio: "1 / 1",
-                  objectFit: "cover",
-                  cursor: "pointer",
-                  borderRadius: { xs: 0, sm: 1 },
+                tabIndex={0}
+                onKeyDown={(e) => {
+                  if (e.key === "Enter" || e.key === " ") {
+                    e.preventDefault();
+                    handleOpen(0);
+                  }
                 }}
-              />
-            </Grid>
-            <Grid item xs={12} sm={6} container spacing={1}>
+                sx={{
+                  cursor: "pointer",
+                  "&:focus": {
+                    outline: `3px solid ${theme.palette.primary.main}`,
+                    outlineOffset: "2px",
+                  },
+                }}
+              >
+                <LoadableImage
+                  src={images[0]?.src || "/placeholder.svg"}
+                  alt={images[0]?.alt}
+                  onClick={() => handleOpen(0)}
+                  loading="eager"
+                  aspectRatio={1}
+                  borderRadius={1}
+                />
+              </Box>
+            </Grid2>
+            <Grid2 size={{ xs: 12, sm: 6 }} container spacing={1}>
               {images.slice(1, 5).map((img, index) => (
-                <Grid item xs={6} key={index}>
+                <Grid2 size={6} key={index}>
                   <Box
-                    component="img"
-                    src={img.src}
-                    alt={img.alt}
-                    onClick={() => handleOpen(index + 1)}
-                    loading="lazy"
-                    sx={{
-                      width: "100%",
-                      height: "100%",
-                      aspectRatio: "1 / 1",
-                      objectFit: "cover",
-                      cursor: "pointer",
-                      borderRadius: { xs: 0, sm: 1 },
+                    tabIndex={0}
+                    onKeyDown={(e) => {
+                      if (e.key === "Enter" || e.key === " ") {
+                        e.preventDefault();
+                        handleOpen(index + 1);
+                      }
                     }}
-                  />
-                </Grid>
+                    sx={{
+                      cursor: "pointer",
+                      "&:focus": {
+                        outline: `3px solid ${theme.palette.primary.main}`,
+                        outlineOffset: "2px",
+                      },
+                    }}
+                  >
+                    <LoadableImage
+                      src={img.src}
+                      alt={img.alt}
+                      onClick={() => handleOpen(index + 1)}
+                      loading="lazy"
+                      aspectRatio={1}
+                      borderRadius={1}
+                    />
+                  </Box>
+                </Grid2>
               ))}
-            </Grid>
+            </Grid2>
 
             {/* Show All Photos Button (Positioned over the last photo) */}
-            <Grid item xs={12} sx={{ position: "relative" }}>
+            <Grid2 size={12} sx={{ position: "relative" }}>
               <Button
                 variant="contained"
                 onClick={() => handleOpen(0)}
@@ -199,8 +232,8 @@ const ImageGallery: React.FC<ImageGalleryProps> = ({ images }) => {
                 <Image sx={{ marginRight: 1 }} />
                 <Typography variant="body2">Show all photos</Typography>
               </Button>
-            </Grid>
-          </Grid>
+            </Grid2>
+          </Grid2>
         )}
       </Box>
 
@@ -209,14 +242,16 @@ const ImageGallery: React.FC<ImageGalleryProps> = ({ images }) => {
         open={open}
         onClose={handleClose}
         fullScreen={isMobile}
-        PaperProps={{
-          sx: {
-            bgcolor: "black",
-            width: isMobile ? "100%" : "80%",
-            height: isMobile ? "100%" : "80%",
-            maxWidth: "none",
-            borderRadius: isMobile ? 0 : 2,
-            m: isMobile ? 0 : 2,
+        slotProps={{
+          paper: {
+            sx: {
+              bgcolor: "black",
+              width: isMobile ? "100%" : "80%",
+              height: isMobile ? "100%" : "80%",
+              maxWidth: "none",
+              borderRadius: isMobile ? 0 : 2,
+              m: isMobile ? 0 : 2,
+            },
           },
         }}
       >
