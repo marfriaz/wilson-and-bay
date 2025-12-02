@@ -199,7 +199,7 @@ const ImageGallery: React.FC<ImageGalleryProps> = ({ images }) => {
                       src={img.src}
                       alt={img.alt}
                       onClick={() => handleOpen(index + 1)}
-                      loading="lazy"
+                      loading={index < 2 ? "eager" : "lazy"}
                       aspectRatio={1}
                       borderRadius={1}
                     />

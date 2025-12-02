@@ -209,7 +209,7 @@ const Gallery: React.FC = () => {
                     src={item.src}
                     alt={item.alt}
                     onClick={() => handleImageClick(index)}
-                    loading="lazy"
+                    loading={index < 6 ? "eager" : "lazy"}
                     aspectRatio={220 / 220}
                     borderRadius={0}
                     sx={{ height: 220 }}
