@@ -28,9 +28,9 @@ const Gallery: React.FC = () => {
   const [filter, setFilter] = useState("all");
   const [isTransitioning, setIsTransitioning] = useState(false);
   const [filteredImages, setFilteredImages] = useState(galleryData);
-  const [visibleCount, setVisibleCount] = useState(12); // Initial number of images to show
   const theme = useTheme();
   const isMobile = useMediaQuery(theme.breakpoints.down("sm"));
+  const [visibleCount, setVisibleCount] = useState(isMobile ? 6 : 12); // Initial number of images to show
 
   const handleImageClick = (index: number) => {
     setCurrentImageIndex(index);
@@ -39,6 +39,11 @@ const Gallery: React.FC = () => {
   const handleClose = () => {
     setCurrentImageIndex(null);
   };
+
+  // Update visible count when mobile state changes
+  useEffect(() => {
+    setVisibleCount(isMobile ? 6 : 12);
+  }, [isMobile]);
 
   // Handle filter changes with proper state management
   useEffect(() => {
