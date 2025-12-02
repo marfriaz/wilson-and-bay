@@ -73,17 +73,20 @@ const VenueTemplate: React.FC<VenueTemplateProps> = ({ venue }) => {
             {spaceSqft && (
               <Chip icon={<SquareFoot />} label={`${spaceSqft} sqft`} />
             )}
-            <Box sx={{ ml: "20px" }}>
-              <Button
-                variant="contained"
-                size="large"
-                component={RouterLink}
-                to={`/contact?space=${encodeURIComponent(venue.name || "")}`}
-              >
-                Book Now
-              </Button>
-            </Box>
           </Box>
+          <Button
+            variant="contained"
+            size="large"
+            component={RouterLink}
+            to={`/contact?space=${encodeURIComponent(venue.name || "")}`}
+            sx={{
+              mt: 2,
+              width: { xs: "100%", sm: "auto" },
+              minWidth: { sm: 200 },
+            }}
+          >
+            Book Now
+          </Button>
         </Box>
 
         <Grid container spacing={4}>
