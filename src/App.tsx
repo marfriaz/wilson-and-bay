@@ -6,7 +6,7 @@ import Home from "./pages/Home";
 import VenueTemplate from "./components/VenueTemplate"; // Assuming your dynamic venue component is here
 import Contact from "./pages/Contact";
 import Gallery from "./pages/Gallery";
-import theme from "./theme";
+import theme from "./themes/theme";
 import { venueJson } from "./components/VenueJson";
 
 const App: React.FC = () => {
