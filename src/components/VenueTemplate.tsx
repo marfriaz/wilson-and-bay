@@ -85,7 +85,7 @@ const VenueTemplate: React.FC<VenueTemplateProps> = ({ venue }) => {
               minWidth: { sm: 200 },
             }}
           >
-            Book Now
+            Inquire Now
           </Button>
         </Box>
 
