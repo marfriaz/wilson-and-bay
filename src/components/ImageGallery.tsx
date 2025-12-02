@@ -12,6 +12,7 @@ import {
   Button,
   useTheme,
   useMediaQuery,
+  CircularProgress,
 } from "@mui/material";
 import {
   ArrowBackIos,
@@ -33,6 +34,7 @@ interface ImageGalleryProps {
 const ImageGallery: React.FC<ImageGalleryProps> = ({ images }) => {
   const [open, setOpen] = useState(false);
   const [currentIndex, setCurrentIndex] = useState(0);
+  const [imageLoading, setImageLoading] = useState(false);
   const theme = useTheme();
   const isMobile = useMediaQuery(theme.breakpoints.down("sm"));
   const isExtraSmall = useMediaQuery("(max-width:400px)");
@@ -46,24 +48,42 @@ const ImageGallery: React.FC<ImageGalleryProps> = ({ images }) => {
     setOpen(false);
   };
 
+  const checkImageLoaded = (index: number) => {
+    const img = document.createElement("img");
+    img.src = images[index]?.src || "";
+
+    // If image is already cached/loaded, don't show spinner
+    if (img.complete) {
+      setImageLoading(false);
+    } else {
+      setImageLoading(true);
+    }
+  };
+
   const handlePrevious = () => {
-    setCurrentIndex((prevIndex) =>
-      prevIndex === 0 ? images.length - 1 : prevIndex - 1
-    );
+    const newIndex = currentIndex === 0 ? images.length - 1 : currentIndex - 1;
+    checkImageLoaded(newIndex);
+    setCurrentIndex(newIndex);
   };
 
   const handleNext = () => {
-    setCurrentIndex((prevIndex) =>
-      prevIndex === images.length - 1 ? 0 : prevIndex + 1
-    );
+    const newIndex = currentIndex === images.length - 1 ? 0 : currentIndex + 1;
+    checkImageLoaded(newIndex);
+    setCurrentIndex(newIndex);
   };
 
   const handleFirst = () => {
+    checkImageLoaded(0);
     setCurrentIndex(0);
   };
 
   const handleLast = () => {
+    checkImageLoaded(images.length - 1);
     setCurrentIndex(images.length - 1);
+  };
+
+  const handleImageLoad = () => {
+    setImageLoading(false);
   };
 
   // Integrate keyboard navigation hook
@@ -315,11 +335,27 @@ const ImageGallery: React.FC<ImageGalleryProps> = ({ images }) => {
             <ArrowForwardIos />
           </IconButton>
 
+          {/* Loading Spinner */}
+          {imageLoading && (
+            <Box
+              sx={{
+                position: "absolute",
+                top: "50%",
+                left: "50%",
+                transform: "translate(-50%, -50%)",
+                zIndex: 1,
+              }}
+            >
+              <CircularProgress size={60} sx={{ color: "white" }} />
+            </Box>
+          )}
+
           {/* Full Image */}
           <Box
             component="img"
             src={images[currentIndex]?.src}
             alt={images[currentIndex]?.alt}
+            onLoad={handleImageLoad}
             sx={{
               width: "100%",
               height: "100%",
@@ -327,6 +363,8 @@ const ImageGallery: React.FC<ImageGalleryProps> = ({ images }) => {
               display: "block",
               mx: "auto",
               backgroundColor: "black",
+              opacity: imageLoading ? 0 : 1,
+              transition: "opacity 0.3s ease-in-out",
             }}
           />
 

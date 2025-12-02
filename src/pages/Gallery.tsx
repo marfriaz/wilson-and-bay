@@ -28,6 +28,7 @@ const Gallery: React.FC = () => {
   const [filter, setFilter] = useState("all");
   const [isTransitioning, setIsTransitioning] = useState(false);
   const [filteredImages, setFilteredImages] = useState(galleryData);
+  const [imageLoading, setImageLoading] = useState(false);
   const theme = useTheme();
   const isMobile = useMediaQuery(theme.breakpoints.down("sm"));
   const [visibleCount, setVisibleCount] = useState(isMobile ? 6 : 12); // Initial number of images to show
@@ -110,32 +111,54 @@ const Gallery: React.FC = () => {
     setFilter(newValue);
   };
 
+  const checkImageLoaded = (index: number) => {
+    const img = new Image();
+    img.src = filteredImages[index]?.src || "";
+
+    // If image is already cached/loaded, don't show spinner
+    if (img.complete) {
+      setImageLoading(false);
+    } else {
+      setImageLoading(true);
+    }
+  };
+
   const handlePrevious = () => {
     if (currentImageIndex === null) return;
-    setCurrentImageIndex((prevIndex) => {
-      if (prevIndex === null) return 0;
-      return prevIndex === 0 ? filteredImages.length - 1 : prevIndex - 1;
-    });
+    const newIndex =
+      currentImageIndex === 0
+        ? filteredImages.length - 1
+        : currentImageIndex - 1;
+    checkImageLoaded(newIndex);
+    setCurrentImageIndex(newIndex);
   };
 
   const handleNext = () => {
     if (currentImageIndex === null) return;
-    setCurrentImageIndex((prevIndex) => {
-      if (prevIndex === null) return 0;
-      return prevIndex === filteredImages.length - 1 ? 0 : prevIndex + 1;
-    });
+    const newIndex =
+      currentImageIndex === filteredImages.length - 1
+        ? 0
+        : currentImageIndex + 1;
+    checkImageLoaded(newIndex);
+    setCurrentImageIndex(newIndex);
   };
 
   const handleFirst = () => {
     if (filteredImages.length > 0) {
+      checkImageLoaded(0);
       setCurrentImageIndex(0);
     }
   };
 
   const handleLast = () => {
     if (filteredImages.length > 0) {
+      checkImageLoaded(filteredImages.length - 1);
       setCurrentImageIndex(filteredImages.length - 1);
     }
+  };
+
+  const handleImageLoad = () => {
+    setImageLoading(false);
   };
 
   // Integrate keyboard navigation hook
@@ -385,17 +408,35 @@ const Gallery: React.FC = () => {
               </Box>
             )}
 
+            {/* Loading Spinner */}
+            {imageLoading && (
+              <Box
+                sx={{
+                  position: "absolute",
+                  top: "50%",
+                  left: "50%",
+                  transform: "translate(-50%, -50%)",
+                  zIndex: 1,
+                }}
+              >
+                <CircularProgress size={60} sx={{ color: "white" }} />
+              </Box>
+            )}
+
             {currentImageIndex !== null && (
               <img
                 src={
                   filteredImages[currentImageIndex]?.src || "/placeholder.svg"
                 }
                 alt={filteredImages[currentImageIndex]?.alt || "Gallery image"}
+                onLoad={handleImageLoad}
                 style={{
                   maxWidth: "100%",
                   maxHeight: "100%",
                   objectFit: "contain",
                   display: "block",
+                  opacity: imageLoading ? 0 : 1,
+                  transition: "opacity 0.3s ease-in-out",
                 }}
               />
             )}
