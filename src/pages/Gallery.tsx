@@ -239,11 +239,25 @@ const Gallery: React.FC = () => {
               onChange={handleFilterChange}
               aria-label="gallery filters"
               centered
+              sx={{
+                "& .MuiTab-root": {
+                  color: theme.palette.text.secondary,
+                  fontWeight: 500,
+                  "&.Mui-selected": {
+                    color: theme.palette.primary.main,
+                    fontWeight: 600,
+                  },
+                },
+                "& .MuiTabs-indicator": {
+                  backgroundColor: theme.palette.primary.main,
+                  height: 3,
+                },
+              }}
             >
               <Tab label="All Spaces" value="all" />
               <Tab label="The Wilson Room" value="wilson" />
               <Tab label="The Courtyard" value="courtyard" />
-              <Tab label="Instagram (All Spaces)" value="instagram" />
+              <Tab label="Instagram" value="instagram" />
             </Tabs>
           </Box>
         )}
