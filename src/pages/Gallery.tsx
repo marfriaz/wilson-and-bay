@@ -74,22 +74,34 @@ const Gallery: React.FC = () => {
   // Infinite scroll: Load more images when user scrolls near bottom
   useEffect(() => {
     const handleScroll = () => {
-      // Check if user is near bottom of page (within 500px)
-      const scrollPosition = window.innerHeight + window.scrollY;
-      const pageHeight = document.documentElement.scrollHeight;
+      // Mobile: trigger earlier and load fewer images
+      // Desktop: trigger later and load more images
+      const threshold = isMobile ? 300 : 500; // Trigger earlier on mobile
+      const loadCount = isMobile ? 3 : 6; // Load fewer images on mobile
+
+      // Use Math.max to handle iOS Safari's bounce scroll
+      const scrollPosition =
+        window.innerHeight + Math.max(window.scrollY, window.pageYOffset);
+      const pageHeight = Math.max(
+        document.documentElement.scrollHeight,
+        document.body.scrollHeight
+      );
 
       if (
-        scrollPosition >= pageHeight - 500 &&
+        scrollPosition >= pageHeight - threshold &&
         visibleCount < filteredImages.length
       ) {
-        // Load 6 more images
-        setVisibleCount((prev) => Math.min(prev + 6, filteredImages.length));
+        // Load more images based on device type
+        setVisibleCount((prev) =>
+          Math.min(prev + loadCount, filteredImages.length)
+        );
       }
     };
 
-    window.addEventListener("scroll", handleScroll);
+    // Use passive listener for better scroll performance on mobile
+    window.addEventListener("scroll", handleScroll, { passive: true });
     return () => window.removeEventListener("scroll", handleScroll);
-  }, [visibleCount, filteredImages.length]);
+  }, [visibleCount, filteredImages.length, isMobile]);
 
   const handleFilterChange = (
     _event: React.SyntheticEvent,
