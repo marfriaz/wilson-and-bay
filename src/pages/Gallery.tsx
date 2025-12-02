@@ -28,6 +28,7 @@ const Gallery: React.FC = () => {
   const [filter, setFilter] = useState("all");
   const [isTransitioning, setIsTransitioning] = useState(false);
   const [filteredImages, setFilteredImages] = useState(galleryData);
+  const [visibleCount, setVisibleCount] = useState(12); // Initial number of images to show
   const theme = useTheme();
   const isMobile = useMediaQuery(theme.breakpoints.down("sm"));
 
@@ -48,6 +49,9 @@ const Gallery: React.FC = () => {
     // Close lightbox when filter changes
     setCurrentImageIndex(null);
 
+    // Reset visible count when filter changes
+    setVisibleCount(isMobile ? 6 : 12);
+
     // Simulate async filtering (in real app, this might be an API call)
     const timer = setTimeout(() => {
       const newFilteredImages =
@@ -60,7 +64,27 @@ const Gallery: React.FC = () => {
     }, 100); // Small delay to show loading state
 
     return () => clearTimeout(timer);
-  }, [filter]);
+  }, [filter, isMobile]);
+
+  // Infinite scroll: Load more images when user scrolls near bottom
+  useEffect(() => {
+    const handleScroll = () => {
+      // Check if user is near bottom of page (within 500px)
+      const scrollPosition = window.innerHeight + window.scrollY;
+      const pageHeight = document.documentElement.scrollHeight;
+
+      if (
+        scrollPosition >= pageHeight - 500 &&
+        visibleCount < filteredImages.length
+      ) {
+        // Load 6 more images
+        setVisibleCount((prev) => Math.min(prev + 6, filteredImages.length));
+      }
+    };
+
+    window.addEventListener("scroll", handleScroll);
+    return () => window.removeEventListener("scroll", handleScroll);
+  }, [visibleCount, filteredImages.length]);
 
   const handleFilterChange = (
     _event: React.SyntheticEvent,
@@ -180,44 +204,60 @@ const Gallery: React.FC = () => {
             <CircularProgress size={60} />
           </Box>
         ) : (
-          <Grid2 container spacing={2}>
-            {filteredImages.map((item, index) => (
-              <Grid2 key={item.id} size={{ xs: 12, sm: 6, md: 4 }}>
-                <Card
-                  tabIndex={0}
-                  onKeyDown={(e) => {
-                    if (e.key === "Enter" || e.key === " ") {
-                      e.preventDefault();
-                      handleImageClick(index);
-                    }
-                  }}
-                  sx={{
-                    cursor: "pointer",
-                    transition: "transform 0.3s",
-                    "&:hover": {
-                      transform: "scale(1.02)",
-                      boxShadow: 3,
-                    },
-                    "&:focus": {
-                      outline: `3px solid ${theme.palette.primary.main}`,
-                      outlineOffset: "2px",
-                    },
-                    overflow: "hidden",
-                  }}
-                >
-                  <LoadableImage
-                    src={item.src}
-                    alt={item.alt}
-                    onClick={() => handleImageClick(index)}
-                    loading={index < 6 ? "eager" : "lazy"}
-                    aspectRatio={220 / 220}
-                    borderRadius={0}
-                    sx={{ height: 220 }}
-                  />
-                </Card>
-              </Grid2>
-            ))}
-          </Grid2>
+          <>
+            <Grid2 container spacing={2}>
+              {filteredImages.slice(0, visibleCount).map((item, index) => (
+                <Grid2 key={item.id} size={{ xs: 12, sm: 6, md: 4 }}>
+                  <Card
+                    tabIndex={0}
+                    onKeyDown={(e) => {
+                      if (e.key === "Enter" || e.key === " ") {
+                        e.preventDefault();
+                        handleImageClick(index);
+                      }
+                    }}
+                    sx={{
+                      cursor: "pointer",
+                      transition: "transform 0.3s",
+                      "&:hover": {
+                        transform: "scale(1.02)",
+                        boxShadow: 3,
+                      },
+                      "&:focus": {
+                        outline: `3px solid ${theme.palette.primary.main}`,
+                        outlineOffset: "2px",
+                      },
+                      overflow: "hidden",
+                    }}
+                  >
+                    <LoadableImage
+                      src={item.src}
+                      alt={item.alt}
+                      onClick={() => handleImageClick(index)}
+                      loading={index < 6 ? "eager" : "lazy"}
+                      aspectRatio={220 / 220}
+                      borderRadius={0}
+                      sx={{ height: 220 }}
+                    />
+                  </Card>
+                </Grid2>
+              ))}
+            </Grid2>
+
+            {/* Loading indicator when more images are available */}
+            {visibleCount < filteredImages.length && (
+              <Box
+                sx={{
+                  display: "flex",
+                  justifyContent: "center",
+                  alignItems: "center",
+                  py: 4,
+                }}
+              >
+                <CircularProgress size={40} />
+              </Box>
+            )}
+          </>
         )}
 
         {/* Improved Lightbox Dialog matching ImageGallery */}
