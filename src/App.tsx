@@ -6,6 +6,7 @@ import Home from "./pages/Home";
 import VenueTemplate from "./components/VenueTemplate"; // Assuming your dynamic venue component is here
 import Contact from "./pages/Contact";
 import Gallery from "./pages/Gallery";
+import ScrollToTop from "./components/ScrollToTop";
 import theme from "./themes/theme";
 import { venueJson } from "./components/VenueJson";
 
@@ -14,6 +15,7 @@ const App: React.FC = () => {
     <ThemeProvider theme={theme}>
       <CssBaseline />
       <Router>
+        <ScrollToTop />
         <Routes>
           <Route path="/" element={<Layout />}>
             <Route index element={<Home />} />
