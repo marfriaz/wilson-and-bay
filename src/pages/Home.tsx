@@ -3,6 +3,7 @@ import { Box, Typography, Container } from "@mui/material";
 import Spaces from "../components/Spaces";
 import FeaturedGallery from "../components/FeaturedGallery";
 import GuestReviews from "../components/GuestReviews";
+import InstagramEmbed from "../components/InstagramEmbed";
 
 const Home: React.FC = () => {
   return (
@@ -87,6 +88,18 @@ const Home: React.FC = () => {
 
       {/* Guest Reviews Section */}
       <GuestReviews />
+
+      {/* Instagram Embed Section */}
+      <Container maxWidth="md" sx={{ my: 4, px: 2 }}>
+        <Typography
+          variant="h2"
+          gutterBottom
+          sx={{ fontWeight: "bold", mb: 2, textAlign: "center" }}
+        >
+          From Instagram
+        </Typography>
+        <InstagramEmbed showTitle={false} />
+      </Container>
     </Box>
   );
 };

@@ -12,7 +12,15 @@ declare global {
   }
 }
 
-const InstagramEmbed: React.FC = () => {
+interface InstagramEmbedProps {
+  title?: string;
+  showTitle?: boolean;
+}
+
+const InstagramEmbed: React.FC<InstagramEmbedProps> = ({
+  title = "Follow us on Instagram!",
+  showTitle = true,
+}) => {
   useEffect(() => {
     // Load Instagram embed script
     if (typeof window !== "undefined" && !window.instgrm) {
@@ -41,17 +49,19 @@ const InstagramEmbed: React.FC = () => {
         py: 4,
       }}
     >
-      <Typography
-        variant="h3"
-        gutterBottom
-        sx={{
-          mb: 4,
-          textAlign: "center",
-          fontSize: { xs: "1.5rem", sm: "2rem" },
-        }}
-      >
-        Follow us on Instagram!
-      </Typography>
+      {showTitle && (
+        <Typography
+          variant="h3"
+          gutterBottom
+          sx={{
+            mb: 4,
+            textAlign: "center",
+            fontSize: { xs: "1.5rem", sm: "2rem" },
+          }}
+        >
+          {title}
+        </Typography>
+      )}
       <Box
         sx={{
           maxWidth: 540,
