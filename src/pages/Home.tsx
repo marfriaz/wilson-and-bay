@@ -2,6 +2,7 @@ import React from "react";
 import { Box, Typography, Container } from "@mui/material";
 import Spaces from "../components/Spaces";
 import FeaturedGallery from "../components/FeaturedGallery";
+import GuestReviews from "../components/GuestReviews";
 
 const Home: React.FC = () => {
   return (
@@ -83,6 +84,9 @@ const Home: React.FC = () => {
 
       {/* Featured Gallery Section */}
       <FeaturedGallery />
+
+      {/* Guest Reviews Section */}
+      <GuestReviews />
     </Box>
   );
 };
