@@ -153,7 +153,7 @@ const Layout: React.FC = () => {
                           key={venue.route} // Use route as a unique key
                           onClick={handleSpacesClose}
                           component={RouterLink}
-                          to={`/${venue.route}`} // Link to the venue's route
+                          to={venue.route} // Link to the venue's route
                         >
                           {venue.name}
                         </MenuItem>
@@ -230,7 +230,7 @@ const Layout: React.FC = () => {
                       <ListItemButton
                         key={venue?.route}
                         component={RouterLink}
-                        to={`/${venue?.route}`}
+                        to={venue?.route}
                         onClick={toggleDrawer(false)}
                         sx={{ pl: 4 }}
                       >
