@@ -171,7 +171,7 @@ const FeaturedGallery: React.FC = () => {
                       component="img"
                       src={image.src}
                       alt={image.alt}
-                      loading={index < 2 ? "eager" : "lazy"}
+                      loading="eager"
                       onError={() => handleImageError(index)}
                       sx={{
                         width: "100%",
@@ -258,25 +258,31 @@ const FeaturedGallery: React.FC = () => {
             {displayedImages.map((image, index) => (
               <Grid2 size={{ xs: 12, sm: 6, md: 4 }} key={image.id}>
                 <Box
-                  component="img"
-                  src={image.src}
-                  alt={image.alt}
-                  loading={index < 2 ? "eager" : "lazy"}
-                  onError={() => handleImageError(index)}
                   sx={{
-                    width: "100%",
-                    height: 300,
-                    objectFit: "cover",
+                    overflow: "hidden",
                     borderRadius: 1,
-                    bgcolor: "rgba(255, 255, 255, 0.1)",
-                    transition:
-                      "transform 0.3s ease, box-shadow 0.3s ease, opacity 0.3s ease-in-out",
-                    "&:hover": {
-                      transform: "scale(1.05)",
-                      boxShadow: 3,
-                    },
+                    height: 300,
                   }}
-                />
+                >
+                  <Box
+                    component="img"
+                    src={image.src}
+                    alt={image.alt}
+                    loading="eager"
+                    onError={() => handleImageError(index)}
+                    sx={{
+                      width: "100%",
+                      height: "100%",
+                      objectFit: "cover",
+                      bgcolor: "rgba(255, 255, 255, 0.1)",
+                      transition: "transform 0.2s ease-out",
+                      willChange: "transform",
+                      "&:hover": {
+                        transform: "scale(1.08)",
+                      },
+                    }}
+                  />
+                </Box>
               </Grid2>
             ))}
           </Grid2>

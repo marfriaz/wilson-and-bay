@@ -4,7 +4,7 @@ import {
   Typography,
   Button,
   Container,
-  Grid,
+  Grid2,
   Card,
   CardMedia,
   CardContent,
@@ -282,13 +282,22 @@ const Spaces: React.FC = () => {
             </Box>
           </Box>
         ) : (
-          <Grid container spacing={4}>
+          <Grid2
+            container
+            spacing={4}
+            sx={{
+              justifyContent: "center",
+            }}
+          >
             {spaces.map((space, index) => (
-              <Grid item xs={12} md={4} key={index}>
+              <Grid2
+                size={{ xs: 12, md: spaces.length === 2 ? 6 : 4 }}
+                key={index}
+              >
                 <SpaceCard {...space} />
-              </Grid>
+              </Grid2>
             ))}
-          </Grid>
+          </Grid2>
         )}
       </Container>
     </Box>
