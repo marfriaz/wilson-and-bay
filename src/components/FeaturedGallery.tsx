@@ -144,7 +144,13 @@ const FeaturedGallery: React.FC = () => {
           // Mobile Carousel
           <Box>
             <Box
-              sx={{ position: "relative", overflow: "hidden" }}
+              sx={{
+                position: "relative",
+                overflow: "hidden",
+                width: "100vw",
+                marginLeft: "calc(-50vw + 50%)",
+                marginRight: "calc(-50vw + 50%)",
+              }}
               tabIndex={0}
               role="region"
               aria-label="Featured gallery carousel"
@@ -164,7 +170,7 @@ const FeaturedGallery: React.FC = () => {
                     key={image.id}
                     sx={{
                       minWidth: "100%",
-                      px: 2,
+                      position: "relative",
                     }}
                   >
                     <Box
@@ -176,9 +182,9 @@ const FeaturedGallery: React.FC = () => {
                       sx={{
                         width: "100%",
                         height: "auto",
-                        maxHeight: "400px",
+                        minHeight: "300px",
+                        maxHeight: "500px",
                         objectFit: "cover",
-                        borderRadius: 1,
                         bgcolor: "rgba(255, 255, 255, 0.1)",
                         opacity: 1,
                         transition: "opacity 0.3s ease-in-out",
@@ -187,53 +193,24 @@ const FeaturedGallery: React.FC = () => {
                   </Box>
                 ))}
               </Box>
-            </Box>
 
-            {/* Navigation Dots */}
-            <Box
-              sx={{
-                display: "flex",
-                justifyContent: "center",
-                gap: 1.5,
-                mt: 3,
-              }}
-              role="tablist"
-              aria-label="Gallery navigation"
-            >
-              {displayedImages.map((_, index) => (
-                <Box
-                  key={index}
-                  component="button"
-                  onClick={() => setCurrentSlide(index)}
-                  role="tab"
-                  aria-label={`Go to image ${index + 1}`}
-                  aria-selected={currentSlide === index}
-                  tabIndex={0}
-                  sx={{
-                    width: 12,
-                    height: 12,
-                    borderRadius: "50%",
-                    bgcolor:
-                      currentSlide === index
-                        ? "primary.main"
-                        : "rgba(255, 255, 255, 0.3)",
-                    cursor: "pointer",
-                    border: "none",
-                    padding: 0,
-                    transition: "all 0.3s ease",
-                    "&:hover": {
-                      bgcolor:
-                        currentSlide === index
-                          ? "primary.dark"
-                          : "rgba(255, 255, 255, 0.5)",
-                    },
-                    "&:focus": {
-                      outline: `2px solid ${theme.palette.primary.main}`,
-                      outlineOffset: "2px",
-                    },
-                  }}
-                />
-              ))}
+              {/* Image Counter - Bottom Right */}
+              <Box
+                sx={{
+                  position: "absolute",
+                  bottom: 16,
+                  right: 16,
+                  bgcolor: "rgba(0, 0, 0, 0.6)",
+                  color: "white",
+                  px: 2,
+                  py: 0.5,
+                  borderRadius: 2,
+                  fontSize: "0.875rem",
+                  fontWeight: 500,
+                }}
+              >
+                {currentSlide + 1} / {displayedImages.length}
+              </Box>
             </Box>
 
             {/* ARIA Live Region for screen reader announcements */}
