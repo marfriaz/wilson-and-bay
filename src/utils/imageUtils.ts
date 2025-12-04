@@ -99,3 +99,26 @@ export function shouldReduceMotion(): boolean {
   const mediaQuery = window.matchMedia("(prefers-reduced-motion: reduce)");
   return mediaQuery.matches;
 }
+
+/**
+ * Selects a random subset of images from an array
+ * @param images - The source array of images
+ * @param count - Number of images to select (default: 6)
+ * @returns Array of randomly selected images
+ */
+export function selectRandomImages<T>(images: T[], count: number = 6): T[] {
+  // Handle edge case where source array has fewer images than requested
+  if (images.length <= count) {
+    return [...images];
+  }
+
+  // Create a copy and shuffle using Fisher-Yates algorithm
+  const shuffled = [...images];
+  for (let i = shuffled.length - 1; i > 0; i--) {
+    const j = Math.floor(Math.random() * (i + 1));
+    [shuffled[i], shuffled[j]] = [shuffled[j], shuffled[i]];
+  }
+
+  // Return the first 'count' items
+  return shuffled.slice(0, count);
+}

@@ -1,12 +1,9 @@
 import React from "react";
-import { Box, Typography, Button, Container } from "@mui/material";
-import { useNavigate } from "react-router-dom";
+import { Box, Typography, Container } from "@mui/material";
 import Spaces from "../components/Spaces";
-import { ROUTES } from "../constants";
+import FeaturedGallery from "../components/FeaturedGallery";
 
 const Home: React.FC = () => {
-  const navigate = useNavigate();
-
   return (
     <Box>
       {/* Hero Section */}
@@ -79,28 +76,13 @@ const Home: React.FC = () => {
           pop-up shop, workshop, or any special event, our venue adapts to fit
           your vision.
         </Typography>
-
-        {/* View Gallery Button */}
-        <Box sx={{ mt: 4, textAlign: "center" }}>
-          <Button
-            variant="outlined"
-            size="large"
-            onClick={() => navigate(ROUTES.GALLERY)}
-            sx={{
-              px: 5,
-              py: 1.5,
-              fontWeight: "bold",
-              fontSize: { xs: "0.9rem", md: "1.1rem" },
-              borderRadius: 0,
-            }}
-          >
-            View our gallery
-          </Button>
-        </Box>
       </Container>
 
       {/* Our Spaces Section */}
       <Spaces />
+
+      {/* Featured Gallery Section */}
+      <FeaturedGallery />
     </Box>
   );
 };

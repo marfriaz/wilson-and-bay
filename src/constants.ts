@@ -39,3 +39,13 @@ export const ROUTES = {
   GALLERY: "/gallery",
   CONTACT: "/contact",
 } as const;
+
+// Featured images for home page "In Use" section
+export const featuredImages = [
+  wilsonImages[0], // The Wilson Room 1
+  wilsonImages[4], // The Wilson Room 5
+  courtYardImages[0], // The Courtyard 1
+  courtYardImages[9], // The Courtyard 10
+  wilsonImages[7], // The Wilson Room 8
+  courtYardImages[14], // The Courtyard 15
+];
