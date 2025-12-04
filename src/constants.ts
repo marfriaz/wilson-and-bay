@@ -52,7 +52,7 @@ export const featuredImages = [
 
 // Peerspace review constants
 export const PEERSPACE_URL =
-  "https://www.peerspace.com/pages/listings/YOUR_LISTING_ID"; // TODO: Update with actual Peerspace URL
+  "https://www.peerspace.com/pages/listings/66281ae02de482ca77c71015";
 export const PEERSPACE_RATING = 5.0;
 
 // Guest reviews for home page

@@ -21,6 +21,7 @@ import InstagramIcon from "@mui/icons-material/Instagram";
 import StorefrontIcon from "@mui/icons-material/Storefront"; // Changed from OpenInNewIcon
 
 import { venueJson } from "../components/VenueJson";
+import { PEERSPACE_URL } from "../constants";
 
 const Contact: React.FC = () => {
   const [formData, setFormData] = useState({
@@ -91,7 +92,7 @@ const Contact: React.FC = () => {
 
             {/* Peerspace Link with updated icon */}
             <Link
-              href="https://www.peerspace.com/pages/listings/66281ae02de482ca77c71015"
+              href={PEERSPACE_URL}
               target="_blank"
               rel="noopener noreferrer"
               underline="hover"

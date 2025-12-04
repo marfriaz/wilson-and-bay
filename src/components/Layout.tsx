@@ -32,6 +32,7 @@ import LocationOnIcon from "@mui/icons-material/LocationOn";
 import InstagramIcon from "@mui/icons-material/Instagram";
 import { Link as RouterLink, Outlet } from "react-router-dom";
 import { venueJson, Venue } from "./VenueJson";
+import { PEERSPACE_URL } from "../constants";
 
 const Layout: React.FC = () => {
   const [spacesAnchorEl, setSpacesAnchorEl] = useState<null | HTMLElement>(
@@ -335,7 +336,7 @@ const Layout: React.FC = () => {
         </Link>
 
         <Link
-          href="https://www.peerspace.com/pages/listings/66281ae02de482ca77c71015"
+          href={PEERSPACE_URL}
           target="_blank"
           rel="noopener noreferrer"
           underline="hover"
