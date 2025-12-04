@@ -1,4 +1,9 @@
-import { wilsonImages, courtYardImages, theLoftImages } from "../constants";
+import {
+  wilsonImages,
+  courtYardImages,
+  theLoftImages,
+  ROUTES,
+} from "../constants";
 
 export interface Venue {
   name?: string;
@@ -73,12 +78,12 @@ export const venueJson: Venues = {
   venues: [
     {
       // name: "The Loft",
-      // route: "theloft",
+      // route: ROUTES.THE_LOFT,
       images: theLoftImages,
     },
     {
       name: "The Wilson Room",
-      route: "thewilsonroom",
+      route: ROUTES.WILSON_ROOM,
       images: wilsonImages,
       description:
         "Discover a hidden gem in Downtown LA's Arts District. Revitalized from a historic Art Deco bank, this 4,300 square foot, two-story venue offers a unique blend of old-world charm and modern design. It can accommodate up to 120 people and has a 6-hour minimum booking time.",
@@ -227,7 +232,7 @@ export const venueJson: Venues = {
     },
     {
       name: "The Courtyard",
-      route: "thecourtyard",
+      route: ROUTES.COURTYARD,
       images: courtYardImages,
       description:
         "This expansive 15,000 sq ft outdoor gated courtyard is available as an add-on space, a standalone event venue, or for reserved parking. It can accommodate up to 120 people and has a 6-hour minimum booking time.",

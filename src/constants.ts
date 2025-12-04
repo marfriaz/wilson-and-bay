@@ -29,3 +29,13 @@ export const theLoftImages = Array.from({ length: 7 }, (_, i) => {
 });
 
 export const galleryData = [...wilsonImages, ...courtYardImages];
+
+// Route constants
+export const ROUTES = {
+  HOME: "/",
+  WILSON_ROOM: "/thewilsonroom",
+  COURTYARD: "/thecourtyard",
+  THE_LOFT: "/the-loft",
+  GALLERY: "/gallery",
+  CONTACT: "/contact",
+} as const;

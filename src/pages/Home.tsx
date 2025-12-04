@@ -1,6 +1,8 @@
 import React from "react";
 import { Box, Typography, Button, Container } from "@mui/material";
 import { useNavigate } from "react-router-dom";
+import Spaces from "../components/Spaces";
+import { ROUTES } from "../constants";
 
 const Home: React.FC = () => {
   const navigate = useNavigate();
@@ -83,7 +85,7 @@ const Home: React.FC = () => {
           <Button
             variant="outlined"
             size="large"
-            onClick={() => navigate("/gallery")}
+            onClick={() => navigate(ROUTES.GALLERY)}
             sx={{
               px: 5,
               py: 1.5,
@@ -96,6 +98,9 @@ const Home: React.FC = () => {
           </Button>
         </Box>
       </Container>
+
+      {/* Our Spaces Section */}
+      <Spaces />
     </Box>
   );
 };
