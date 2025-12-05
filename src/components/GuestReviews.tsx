@@ -243,9 +243,9 @@ const GuestReviews: React.FC = () => {
               fontSize: "1.1rem",
               fontWeight: 500,
               textDecoration: "none",
-              color: "#ffffff",
+              color: "primary.main",
               "&:hover": {
-                color: "#00bcd4",
+                color: "primary.dark",
                 textDecoration: "underline",
               },
             }}

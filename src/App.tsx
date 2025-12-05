@@ -8,7 +8,7 @@ import Contact from "./pages/Contact";
 import Gallery from "./pages/Gallery";
 import NotFound from "./pages/NotFound";
 import ScrollToTop from "./components/ScrollToTop";
-import theme from "./themes/theme";
+import theme from "./themes/luxury-light-theme";
 import { venueJson } from "./components/VenueJson";
 
 const App: React.FC = () => {
