@@ -64,7 +64,13 @@ const Home: React.FC = () => {
         <Typography
           variant="h2"
           gutterBottom
-          sx={{ fontWeight: "bold", mb: 2, textAlign: "center" }}
+          sx={{
+            fontFamily: '"Oooh Baby", "cursive"',
+            fontWeight: "bold",
+            fontSize: { xs: "2.5rem", md: "4rem" },
+            mb: 2,
+            textAlign: "center",
+          }}
         >
           About us
         </Typography>
@@ -94,7 +100,13 @@ const Home: React.FC = () => {
         <Typography
           variant="h2"
           gutterBottom
-          sx={{ fontWeight: "bold", mb: 2, textAlign: "center" }}
+          sx={{
+            fontFamily: '"Oooh Baby", "cursive"',
+            fontWeight: "bold",
+            fontSize: { xs: "2.5rem", md: "4rem" },
+            mb: 2,
+            textAlign: "center",
+          }}
         >
           From Instagram
         </Typography>

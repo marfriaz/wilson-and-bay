@@ -164,7 +164,9 @@ const Spaces: React.FC = () => {
           component="h2"
           gutterBottom
           sx={{
+            fontFamily: '"Oooh Baby", "cursive"',
             fontWeight: "bold",
+            fontSize: { xs: "2.5rem", md: "4rem" },
             mb: 6,
             textAlign: "center",
             px: isMobile ? 2 : 0,
