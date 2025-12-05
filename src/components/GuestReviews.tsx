@@ -134,47 +134,51 @@ const GuestReviews: React.FC = () => {
               </Box>
             </Box>
 
-            <IconButton
-              onClick={handlePrevSlide}
-              sx={{
-                position: "absolute",
-                left: 8,
-                top: "40%",
-                transform: "translateY(-50%)",
-                bgcolor: "rgba(0, 0, 0, 0.5)",
-                color: "white",
-                width: 40,
-                height: 40,
-                zIndex: 2,
-                "&:hover": {
-                  bgcolor: "rgba(0, 0, 0, 0.7)",
-                },
-                boxShadow: 2,
-              }}
-            >
-              <ChevronLeft fontSize="large" />
-            </IconButton>
+            {currentSlide > 0 && (
+              <IconButton
+                onClick={handlePrevSlide}
+                sx={{
+                  position: "absolute",
+                  left: 8,
+                  top: "40%",
+                  transform: "translateY(-50%)",
+                  bgcolor: "rgba(0, 0, 0, 0.5)",
+                  color: "white",
+                  width: 40,
+                  height: 40,
+                  zIndex: 2,
+                  "&:hover": {
+                    bgcolor: "rgba(0, 0, 0, 0.7)",
+                  },
+                  boxShadow: 2,
+                }}
+              >
+                <ChevronLeft fontSize="large" />
+              </IconButton>
+            )}
 
-            <IconButton
-              onClick={handleNextSlide}
-              sx={{
-                position: "absolute",
-                right: 8,
-                top: "40%",
-                transform: "translateY(-50%)",
-                bgcolor: "rgba(0, 0, 0, 0.5)",
-                color: "white",
-                width: 40,
-                height: 40,
-                zIndex: 2,
-                "&:hover": {
-                  bgcolor: "rgba(0, 0, 0, 0.7)",
-                },
-                boxShadow: 2,
-              }}
-            >
-              <ChevronRight fontSize="large" />
-            </IconButton>
+            {currentSlide < guestReviews.length - 1 && (
+              <IconButton
+                onClick={handleNextSlide}
+                sx={{
+                  position: "absolute",
+                  right: 8,
+                  top: "40%",
+                  transform: "translateY(-50%)",
+                  bgcolor: "rgba(0, 0, 0, 0.5)",
+                  color: "white",
+                  width: 40,
+                  height: 40,
+                  zIndex: 2,
+                  "&:hover": {
+                    bgcolor: "rgba(0, 0, 0, 0.7)",
+                  },
+                  boxShadow: 2,
+                }}
+              >
+                <ChevronRight fontSize="large" />
+              </IconButton>
+            )}
 
             <Box
               sx={{

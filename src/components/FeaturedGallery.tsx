@@ -5,9 +5,11 @@ import {
   Typography,
   Button,
   Grid2,
+  IconButton,
   useTheme,
   useMediaQuery,
 } from "@mui/material";
+import { ChevronLeft, ChevronRight } from "@mui/icons-material";
 import { useNavigate } from "react-router-dom";
 import { featuredImages, ROUTES } from "../constants";
 
@@ -194,22 +196,106 @@ const FeaturedGallery: React.FC = () => {
                 ))}
               </Box>
 
-              {/* Image Counter - Bottom Right */}
+              {/* Navigation Arrows - Only visible when focused and not at boundaries */}
+              {currentSlide > 0 && (
+                <IconButton
+                  onClick={handlePrevSlide}
+                  sx={{
+                    position: "absolute",
+                    left: 16,
+                    top: "50%",
+                    transform: "translateY(-50%)",
+                    bgcolor: "rgba(0, 0, 0, 0.5)",
+                    color: "white",
+                    width: 48,
+                    height: 48,
+                    opacity: 0,
+                    transition: "opacity 0.3s ease",
+                    "&:hover": {
+                      bgcolor: "rgba(0, 0, 0, 0.7)",
+                    },
+                    "&:focus": {
+                      opacity: 1,
+                    },
+                    "div:focus-within &": {
+                      opacity: 1,
+                    },
+                  }}
+                  aria-label="Previous image"
+                >
+                  <ChevronLeft fontSize="large" />
+                </IconButton>
+              )}
+
+              {currentSlide < displayedImages.length - 1 && (
+                <IconButton
+                  onClick={handleNextSlide}
+                  sx={{
+                    position: "absolute",
+                    right: 16,
+                    top: "50%",
+                    transform: "translateY(-50%)",
+                    bgcolor: "rgba(0, 0, 0, 0.5)",
+                    color: "white",
+                    width: 48,
+                    height: 48,
+                    opacity: 0,
+                    transition: "opacity 0.3s ease",
+                    "&:hover": {
+                      bgcolor: "rgba(0, 0, 0, 0.7)",
+                    },
+                    "&:focus": {
+                      opacity: 1,
+                    },
+                    "div:focus-within &": {
+                      opacity: 1,
+                    },
+                  }}
+                  aria-label="Next image"
+                >
+                  <ChevronRight fontSize="large" />
+                </IconButton>
+              )}
+
+              {/* Navigation Dots - Overlaid on bottom */}
               <Box
                 sx={{
                   position: "absolute",
                   bottom: 16,
-                  right: 16,
-                  bgcolor: "rgba(0, 0, 0, 0.6)",
-                  color: "white",
+                  left: "50%",
+                  transform: "translateX(-50%)",
+                  display: "flex",
+                  gap: 1,
+                  bgcolor: "rgba(0, 0, 0, 0.3)",
                   px: 2,
-                  py: 0.5,
-                  borderRadius: 2,
-                  fontSize: "0.875rem",
-                  fontWeight: 500,
+                  py: 1,
+                  borderRadius: 3,
                 }}
               >
-                {currentSlide + 1} / {displayedImages.length}
+                {displayedImages.map((_, index) => (
+                  <Box
+                    key={index}
+                    component="button"
+                    onClick={() => setCurrentSlide(index)}
+                    aria-label={`Go to image ${index + 1}`}
+                    sx={{
+                      width: 8,
+                      height: 8,
+                      borderRadius: "50%",
+                      bgcolor:
+                        currentSlide === index
+                          ? "white"
+                          : "rgba(255, 255, 255, 0.5)",
+                      cursor: "pointer",
+                      border: "none",
+                      padding: 0,
+                      transition: "all 0.3s ease",
+                      "&:hover": {
+                        bgcolor: "white",
+                      },
+                    }}
+                  />
+                ))}
               </Box>
             </Box>
 
