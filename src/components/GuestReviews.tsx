@@ -86,6 +86,7 @@ const GuestReviews: React.FC = () => {
             <Box
               onTouchStart={handleTouchStart}
               onTouchEnd={handleTouchEnd}
+              tabIndex={0}
               sx={{
                 overflow: "hidden",
                 position: "relative",
@@ -147,8 +148,16 @@ const GuestReviews: React.FC = () => {
                   width: 40,
                   height: 40,
                   zIndex: 2,
+                  opacity: 0,
+                  transition: "opacity 0.3s ease",
                   "&:hover": {
                     bgcolor: "rgba(0, 0, 0, 0.7)",
+                  },
+                  "&:focus": {
+                    opacity: 1,
+                  },
+                  "div:focus-within &": {
+                    opacity: 1,
                   },
                   boxShadow: 2,
                 }}
@@ -170,8 +179,16 @@ const GuestReviews: React.FC = () => {
                   width: 40,
                   height: 40,
                   zIndex: 2,
+                  opacity: 0,
+                  transition: "opacity 0.3s ease",
                   "&:hover": {
                     bgcolor: "rgba(0, 0, 0, 0.7)",
+                  },
+                  "&:focus": {
+                    opacity: 1,
+                  },
+                  "div:focus-within &": {
+                    opacity: 1,
                   },
                   boxShadow: 2,
                 }}
@@ -179,40 +196,6 @@ const GuestReviews: React.FC = () => {
                 <ChevronRight fontSize="large" />
               </IconButton>
             )}
-
-            <Box
-              sx={{
-                display: "flex",
-                justifyContent: "center",
-                gap: 1.5,
-                mt: 4,
-                mb: 4,
-              }}
-            >
-              {guestReviews.map((_, index) => (
-                <Box
-                  key={index}
-                  onClick={() => setCurrentSlide(index)}
-                  sx={{
-                    width: 12,
-                    height: 12,
-                    borderRadius: "50%",
-                    bgcolor:
-                      currentSlide === index
-                        ? "primary.main"
-                        : "rgba(0, 0, 0, 0.3)",
-                    cursor: "pointer",
-                    transition: "all 0.3s ease",
-                    "&:hover": {
-                      bgcolor:
-                        currentSlide === index
-                          ? "primary.dark"
-                          : "rgba(0, 0, 0, 0.5)",
-                    },
-                  }}
-                />
-              ))}
-            </Box>
           </Box>
         ) : (
           <Grid2 container spacing={4} sx={{ mb: 4 }}>
