@@ -52,6 +52,7 @@ const Home: React.FC = () => {
               fontWeight: "bold",
               fontSize: { xs: "2.5rem", md: "4rem" },
               textShadow: "2px 2px 8px rgba(0,0,0,0.8)",
+              color: "#fff", // White to match dark theme
             }}
           >
             Wilson&Bay
