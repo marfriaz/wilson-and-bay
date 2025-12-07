@@ -12,52 +12,25 @@ const Home: React.FC = () => {
       <Box
         sx={{
           position: "relative",
-          height: { xs: "60vh", md: "80vh" },
+          height: { xs: "100dvh", md: "100vh" },
           width: "100vw",
           overflow: "hidden",
           marginLeft: "calc(-50vw + 50%)",
           marginRight: "calc(-50vw + 50%)",
+          marginTop: { xs: "-56px", md: "-64px" }, // Offset the AppBar height to allow overlap (56px on mobile, 64px on desktop)
         }}
       >
         <Box
           component="img"
-          src="https://firebasestorage.googleapis.com/v0/b/wilsonandbay.firebasestorage.app/o/banners%2F1.jpeg?alt=media"
+          src="https://firebasestorage.googleapis.com/v0/b/wilsonandbay.firebasestorage.app/o/wilsonRoom%2F4.jpeg?alt=media"
           alt="Wilson&Bay Venue"
           sx={{
             width: "100%",
             height: "100%",
             objectFit: "cover",
-            filter: "brightness(0.6)",
+            objectPosition: { xs: "70% center", md: "center center" },
           }}
         />
-        <Box
-          sx={{
-            position: "absolute",
-            top: 0,
-            left: 0,
-            right: 0,
-            bottom: 0,
-            display: "flex",
-            justifyContent: "center",
-            alignItems: "center",
-            color: "#fff",
-            textAlign: "center",
-            px: 3,
-          }}
-        >
-          <Typography
-            variant="h2"
-            component="h2"
-            sx={{
-              fontWeight: "bold",
-              fontSize: { xs: "2.5rem", md: "4rem" },
-              textShadow: "2px 2px 8px rgba(0,0,0,0.8)",
-              color: "#fff", // White to match dark theme
-            }}
-          >
-            Wilson&Bay
-          </Typography>
-        </Box>
       </Box>
 
       {/* About Section */}

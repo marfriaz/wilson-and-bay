@@ -71,7 +71,17 @@ const Layout: React.FC = () => {
         overflowX: "hidden", // Prevent horizontal scrolling
       }}
     >
-      <AppBar position="static">
+      <AppBar
+        position="fixed"
+        elevation={0}
+        sx={{
+          backgroundColor: "transparent",
+          boxShadow: "none",
+          backdropFilter: "none",
+          border: "none",
+          borderBottom: "none",
+        }}
+      >
         <Toolbar sx={{ justifyContent: "space-between", px: { xs: 1, sm: 2 } }}>
           <Typography
             variant="h6"
@@ -79,10 +89,10 @@ const Layout: React.FC = () => {
             to="/"
             sx={{
               textDecoration: "none",
-              color: "inherit",
-              // fontSize: { xs: "1.1rem", sm: "1.25rem" },
-              fontFamily: '"Oooh Baby", "cursive"', // Added font family
-              fontWeight: "bold", // Added for bold text
+              color: "white",
+              fontFamily: '"Oooh Baby", "cursive"',
+              fontWeight: "bold",
+              textShadow: "2px 2px 4px rgba(0, 0, 0, 0.7)",
             }}
           >
             Wilson&Bay
@@ -91,9 +101,13 @@ const Layout: React.FC = () => {
           {isMobile ? (
             <IconButton
               edge="end"
-              color="inherit"
               onClick={toggleDrawer(true)}
-              sx={{ mr: 1, p: 1.5 }}
+              sx={{
+                mr: 1,
+                p: 1.5,
+                color: "white",
+                filter: "drop-shadow(2px 2px 4px rgba(0, 0, 0, 0.7))",
+              }}
             >
               <MenuIcon />
             </IconButton>
@@ -110,9 +124,10 @@ const Layout: React.FC = () => {
                 to="/"
                 sx={{
                   textDecoration: "none",
-                  color: "inherit",
+                  color: "white",
                   display: "flex",
                   alignItems: "center",
+                  textShadow: "2px 2px 4px rgba(0, 0, 0, 0.7)",
                 }}
               >
                 Home
@@ -127,11 +142,15 @@ const Layout: React.FC = () => {
                   onClick={handleSpacesClick}
                   endIcon={<KeyboardArrowDown />}
                   sx={{
-                    color: "inherit",
+                    color: "white",
                     textTransform: "none",
                     fontSize: "1rem",
                     fontWeight: "normal",
                     padding: "6px 8px",
+                    textShadow: "2px 2px 4px rgba(0, 0, 0, 0.7)",
+                    "& .MuiSvgIcon-root": {
+                      filter: "drop-shadow(2px 2px 4px rgba(0, 0, 0, 0.7))",
+                    },
                   }}
                 >
                   Our Spaces
@@ -168,9 +187,10 @@ const Layout: React.FC = () => {
                 to="/gallery"
                 sx={{
                   textDecoration: "none",
-                  color: "inherit",
+                  color: "white",
                   display: "flex",
                   alignItems: "center",
+                  textShadow: "2px 2px 4px rgba(0, 0, 0, 0.7)",
                 }}
               >
                 Gallery
@@ -181,9 +201,10 @@ const Layout: React.FC = () => {
                 to="/contact"
                 sx={{
                   textDecoration: "none",
-                  color: "inherit",
+                  color: "white",
                   display: "flex",
                   alignItems: "center",
+                  textShadow: "2px 2px 4px rgba(0, 0, 0, 0.7)",
                 }}
               >
                 Contact Us
