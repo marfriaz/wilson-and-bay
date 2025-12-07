@@ -6,14 +6,17 @@ import {
   useMediaQuery,
   useTheme,
 } from "@mui/material";
+import { useNavigate } from "react-router-dom";
 import Spaces from "../components/Spaces";
 import FeaturedGallery from "../components/FeaturedGallery";
 import GuestReviews from "../components/GuestReviews";
 import InstagramEmbed from "../components/InstagramEmbed";
+import { ROUTES } from "../constants";
 
 const Home: React.FC = () => {
   const theme = useTheme();
   const isMobile = useMediaQuery(theme.breakpoints.down("md"));
+  const navigate = useNavigate();
 
   const heroImageSrc = isMobile
     ? "https://firebasestorage.googleapis.com/v0/b/wilsonandbay.firebasestorage.app/o/banners%2F2.jpeg?alt=media"
@@ -48,6 +51,61 @@ const Home: React.FC = () => {
             left: 0,
           }}
         />
+        {/* Hero Text Overlay */}
+        <Box
+          sx={{
+            position: "absolute",
+            top: "50%",
+            left: "50%",
+            transform: "translate(-50%, -50%)",
+            textAlign: "center",
+            color: "white",
+            zIndex: 1,
+            width: "90%",
+            maxWidth: "800px",
+          }}
+        >
+          <Typography
+            variant="h1"
+            sx={{
+              fontFamily: '"Manrope", "Arial", sans-serif',
+              fontSize: { xs: "2rem", sm: "3rem", md: "4rem" },
+              fontWeight: "bold",
+              color: "white",
+              textShadow: "2px 2px 8px rgba(0, 0, 0, 0.7)",
+            }}
+          >
+            Unique event spaces in the heart of LA's arts district
+          </Typography>
+        </Box>
+        {/* CTA Link - Bottom Right */}
+        <Box
+          sx={{
+            position: "absolute",
+            bottom: { xs: "80px", md: "15px" },
+            right: { xs: "20px", md: "40px" },
+            zIndex: 1,
+          }}
+        >
+          <Box
+            onClick={() => navigate(ROUTES.CONTACT)}
+            component="span"
+            sx={{
+              fontSize: "1.1rem",
+              fontWeight: 500,
+              textDecoration: "none",
+              color: "white",
+              cursor: "pointer",
+              display: "inline-block",
+              textShadow: "2px 2px 8px rgba(0, 0, 0, 0.7)",
+              "&:hover": {
+                textDecoration: "underline",
+              },
+            }}
+          >
+            Inquire now →
+          </Box>
+        </Box>
       </Box>
 
       {/* Our Spaces Section */}
