@@ -30,7 +30,7 @@ import {
 import EmailIcon from "@mui/icons-material/Email";
 import LocationOnIcon from "@mui/icons-material/LocationOn";
 import InstagramIcon from "@mui/icons-material/Instagram";
-import { Link as RouterLink, Outlet } from "react-router-dom";
+import { Link as RouterLink, Outlet, useLocation } from "react-router-dom";
 import { venueJson, Venue } from "./VenueJson";
 import { PEERSPACE_URL } from "../constants";
 
@@ -44,6 +44,8 @@ const Layout: React.FC = () => {
 
   const theme = useTheme();
   const isMobile = useMediaQuery(theme.breakpoints.down("sm"));
+  const location = useLocation();
+  const isHomePage = location.pathname === "/";
 
   const handleSpacesClick = (event: React.MouseEvent<HTMLElement>) => {
     setSpacesAnchorEl(event.currentTarget);
@@ -75,9 +77,11 @@ const Layout: React.FC = () => {
         position="fixed"
         elevation={0}
         sx={{
-          backgroundColor: "transparent",
-          boxShadow: "none",
-          backdropFilter: "none",
+          backgroundColor: isHomePage
+            ? "transparent"
+            : "rgba(255, 255, 255, 0.95)",
+          boxShadow: isHomePage ? "none" : "0 2px 4px rgba(0,0,0,0.1)",
+          backdropFilter: isHomePage ? "none" : "blur(10px)",
           border: "none",
           borderBottom: "none",
         }}
@@ -89,10 +93,12 @@ const Layout: React.FC = () => {
             to="/"
             sx={{
               textDecoration: "none",
-              color: "white",
+              color: isHomePage ? "white" : "text.primary",
               fontFamily: '"Oooh Baby", "cursive"',
               fontWeight: "bold",
-              textShadow: "2px 2px 4px rgba(0, 0, 0, 0.7)",
+              textShadow: isHomePage
+                ? "2px 2px 4px rgba(0, 0, 0, 0.7)"
+                : "none",
             }}
           >
             Wilson&Bay
@@ -105,8 +111,10 @@ const Layout: React.FC = () => {
               sx={{
                 mr: 1,
                 p: 1.5,
-                color: "white",
-                filter: "drop-shadow(2px 2px 4px rgba(0, 0, 0, 0.7))",
+                color: isHomePage ? "white" : "text.primary",
+                filter: isHomePage
+                  ? "drop-shadow(2px 2px 4px rgba(0, 0, 0, 0.7))"
+                  : "none",
               }}
             >
               <MenuIcon />
@@ -124,10 +132,12 @@ const Layout: React.FC = () => {
                 to="/"
                 sx={{
                   textDecoration: "none",
-                  color: "white",
+                  color: isHomePage ? "white" : "text.primary",
                   display: "flex",
                   alignItems: "center",
-                  textShadow: "2px 2px 4px rgba(0, 0, 0, 0.7)",
+                  textShadow: isHomePage
+                    ? "2px 2px 4px rgba(0, 0, 0, 0.7)"
+                    : "none",
                 }}
               >
                 Home
@@ -142,14 +152,18 @@ const Layout: React.FC = () => {
                   onClick={handleSpacesClick}
                   endIcon={<KeyboardArrowDown />}
                   sx={{
-                    color: "white",
+                    color: isHomePage ? "white" : "text.primary",
                     textTransform: "none",
                     fontSize: "1rem",
                     fontWeight: "normal",
                     padding: "6px 8px",
-                    textShadow: "2px 2px 4px rgba(0, 0, 0, 0.7)",
+                    textShadow: isHomePage
+                      ? "2px 2px 4px rgba(0, 0, 0, 0.7)"
+                      : "none",
                     "& .MuiSvgIcon-root": {
-                      filter: "drop-shadow(2px 2px 4px rgba(0, 0, 0, 0.7))",
+                      filter: isHomePage
+                        ? "drop-shadow(2px 2px 4px rgba(0, 0, 0, 0.7))"
+                        : "none",
                     },
                   }}
                 >
@@ -187,10 +201,12 @@ const Layout: React.FC = () => {
                 to="/gallery"
                 sx={{
                   textDecoration: "none",
-                  color: "white",
+                  color: isHomePage ? "white" : "text.primary",
                   display: "flex",
                   alignItems: "center",
-                  textShadow: "2px 2px 4px rgba(0, 0, 0, 0.7)",
+                  textShadow: isHomePage
+                    ? "2px 2px 4px rgba(0, 0, 0, 0.7)"
+                    : "none",
                 }}
               >
                 Gallery
@@ -201,10 +217,12 @@ const Layout: React.FC = () => {
                 to="/contact"
                 sx={{
                   textDecoration: "none",
-                  color: "white",
+                  color: isHomePage ? "white" : "text.primary",
                   display: "flex",
                   alignItems: "center",
-                  textShadow: "2px 2px 4px rgba(0, 0, 0, 0.7)",
+                  textShadow: isHomePage
+                    ? "2px 2px 4px rgba(0, 0, 0, 0.7)"
+                    : "none",
                 }}
               >
                 Contact Us
@@ -290,6 +308,7 @@ const Layout: React.FC = () => {
           py: 0,
           px: { xs: 2, sm: 3 },
           maxWidth: { xs: "100%", sm: "lg" },
+          pt: isHomePage ? 0 : { xs: "56px", md: "64px" },
         }}
         disableGutters={isMobile}
       >
