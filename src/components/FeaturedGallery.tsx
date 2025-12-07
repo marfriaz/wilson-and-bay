@@ -353,22 +353,26 @@ const FeaturedGallery: React.FC = () => {
           </Grid2>
         )}
 
-        {/* CTA Button */}
+        {/* CTA Link */}
         <Box sx={{ mt: 4, textAlign: "center" }}>
-          <Button
-            variant="outlined"
-            size="large"
+          <Box
             onClick={handleViewGallery}
+            component="span"
             sx={{
-              px: 5,
-              py: 1.5,
-              fontWeight: "bold",
-              fontSize: { xs: "0.9rem", md: "1.1rem" },
-              borderRadius: 0,
+              fontSize: "1.1rem",
+              fontWeight: 500,
+              textDecoration: "none",
+              color: "primary.main",
+              cursor: "pointer",
+              display: "inline-block",
+              "&:hover": {
+                color: "primary.dark",
+                textDecoration: "underline",
+              },
             }}
           >
             View Full Gallery →
-          </Button>
+          </Box>
         </Box>
       </Container>
     </Box>

@@ -74,18 +74,25 @@ const SpaceCard: React.FC<SpaceCardProps> = ({
         <Typography variant="body1" sx={{ mb: 3, flexGrow: 1 }}>
           {description}
         </Typography>
-        <Button
-          variant="outlined"
-          fullWidth
+        <Box
           onClick={() => navigate(link)}
+          component="span"
           sx={{
             mt: "auto",
-            borderRadius: 0,
-            fontWeight: "bold",
+            fontSize: "1.1rem",
+            fontWeight: 500,
+            textDecoration: "none",
+            color: "primary.main",
+            cursor: "pointer",
+            display: "inline-block",
+            "&:hover": {
+              color: "primary.dark",
+              textDecoration: "underline",
+            },
           }}
         >
-          View Space
-        </Button>
+          View Space →
+        </Box>
       </CardContent>
     </Card>
   );
