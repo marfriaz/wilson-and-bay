@@ -2,9 +2,7 @@ import React, { useState } from "react";
 import {
   Box,
   Typography,
-  Button,
   Container,
-  Grid2,
   Card,
   CardMedia,
   CardContent,
@@ -22,6 +20,7 @@ interface SpaceCardProps {
   stats: string;
   description: string;
   link: string;
+  layoutMode?: "vertical" | "horizontal";
 }
 
 const SpaceCard: React.FC<SpaceCardProps> = ({
@@ -30,31 +29,113 @@ const SpaceCard: React.FC<SpaceCardProps> = ({
   stats,
   description,
   link,
+  layoutMode = "vertical",
 }) => {
   const navigate = useNavigate();
 
+  // Vertical layout (existing mobile carousel)
+  if (layoutMode === "vertical") {
+    return (
+      <Card
+        sx={{
+          height: "100%",
+          display: "flex",
+          flexDirection: "column",
+          boxShadow: 3,
+          transition: "transform 0.3s ease-in-out",
+          "&:hover": {
+            transform: "translateY(-8px)",
+          },
+        }}
+      >
+        <CardMedia
+          component="img"
+          height="300"
+          image={image}
+          alt={title}
+          sx={{ objectFit: "cover" }}
+        />
+        <CardContent
+          sx={{ flexGrow: 1, display: "flex", flexDirection: "column" }}
+        >
+          <Typography
+            variant="h5"
+            component="h3"
+            gutterBottom
+            sx={{ fontWeight: "bold" }}
+          >
+            {title}
+          </Typography>
+          <Typography
+            variant="body2"
+            color="text.secondary"
+            sx={{ mb: 2, fontWeight: 500 }}
+          >
+            {stats}
+          </Typography>
+          <Typography variant="body1" sx={{ mb: 3, flexGrow: 1 }}>
+            {description}
+          </Typography>
+          <Box
+            onClick={() => navigate(link)}
+            onKeyDown={(e) => {
+              if (e.key === "Enter" || e.key === " ") {
+                e.preventDefault();
+                navigate(link);
+              }
+            }}
+            component="span"
+            tabIndex={0}
+            role="button"
+            sx={{
+              mt: "auto",
+              fontSize: "1.1rem",
+              fontWeight: 500,
+              textDecoration: "none",
+              color: "primary.main",
+              cursor: "pointer",
+              display: "inline-block",
+              "&:hover": {
+                color: "primary.dark",
+                textDecoration: "underline",
+              },
+              "&:focus": {
+                outline: "2px solid",
+                outlineColor: "primary.main",
+                outlineOffset: "2px",
+              },
+            }}
+          >
+            View Space →
+          </Box>
+        </CardContent>
+      </Card>
+    );
+  }
+
+  // Horizontal layout (new desktop/tablet)
   return (
-    <Card
+    <Box
       sx={{
-        height: "100%",
         display: "flex",
-        flexDirection: "column",
+        flexDirection: "row",
         boxShadow: 3,
-        transition: "transform 0.3s ease-in-out",
+        transition: "box-shadow 0.3s ease-in-out",
+        overflow: "hidden",
         "&:hover": {
-          transform: "translateY(-8px)",
+          boxShadow: 6,
         },
       }}
     >
-      <CardMedia
-        component="img"
-        height="300"
-        image={image}
-        alt={title}
-        sx={{ objectFit: "cover" }}
-      />
-      <CardContent
-        sx={{ flexGrow: 1, display: "flex", flexDirection: "column" }}
+      {/* Text Box - Left Side */}
+      <Box
+        sx={{
+          flex: 1,
+          display: "flex",
+          flexDirection: "column",
+          p: 4,
+          justifyContent: "center",
+        }}
       >
         <Typography
           variant="h5"
@@ -71,30 +152,63 @@ const SpaceCard: React.FC<SpaceCardProps> = ({
         >
           {stats}
         </Typography>
-        <Typography variant="body1" sx={{ mb: 3, flexGrow: 1 }}>
+        <Typography variant="body1" sx={{ mb: 3 }}>
           {description}
         </Typography>
         <Box
           onClick={() => navigate(link)}
+          onKeyDown={(e) => {
+            if (e.key === "Enter" || e.key === " ") {
+              e.preventDefault();
+              navigate(link);
+            }
+          }}
           component="span"
+          tabIndex={0}
+          role="button"
           sx={{
-            mt: "auto",
             fontSize: "1.1rem",
             fontWeight: 500,
             textDecoration: "none",
             color: "primary.main",
             cursor: "pointer",
             display: "inline-block",
+            width: "fit-content",
             "&:hover": {
               color: "primary.dark",
               textDecoration: "underline",
+            },
+            "&:focus": {
+              outline: "2px solid",
+              outlineColor: "primary.main",
+              outlineOffset: "2px",
             },
           }}
         >
           View Space →
         </Box>
-      </CardContent>
-    </Card>
+      </Box>
+
+      {/* Image Box - Right Side */}
+      <Box
+        sx={{
+          flex: 1,
+          display: "flex",
+          alignItems: "stretch",
+        }}
+      >
+        <Box
+          component="img"
+          src={image}
+          alt={title}
+          sx={{
+            width: "100%",
+            height: "100%",
+            objectFit: "cover",
+          }}
+        />
+      </Box>
+    </Box>
   );
 };
 
@@ -165,23 +279,11 @@ const Spaces: React.FC = () => {
 
   return (
     <Box sx={{ py: 8, bgcolor: "background.default" }}>
-      <Container maxWidth={isMobile ? false : "lg"} disableGutters={isMobile}>
-        <Typography
-          variant="h2"
-          component="h2"
-          gutterBottom
-          sx={{
-            fontFamily: '"Oooh Baby", "cursive"',
-            fontWeight: "bold",
-            fontSize: { xs: "2.5rem", md: "4rem" },
-            mb: 6,
-            textAlign: "center",
-            px: isMobile ? 2 : 0,
-          }}
-        >
-          Our Spaces
-        </Typography>
-
+      <Container
+        maxWidth={false}
+        disableGutters={isMobile}
+        sx={{ px: isMobile ? 0 : 3 }}
+      >
         {isMobile ? (
           <Box sx={{ position: "relative", px: 2 }}>
             <Box
@@ -210,7 +312,7 @@ const Spaces: React.FC = () => {
                       px: 1,
                     }}
                   >
-                    <SpaceCard {...space} />
+                    <SpaceCard {...space} layoutMode="vertical" />
                   </Box>
                 ))}
               </Box>
@@ -279,22 +381,17 @@ const Spaces: React.FC = () => {
             )}
           </Box>
         ) : (
-          <Grid2
-            container
-            spacing={4}
+          <Box
             sx={{
-              justifyContent: "center",
+              display: "flex",
+              flexDirection: "column",
+              gap: 4,
             }}
           >
             {spaces.map((space, index) => (
-              <Grid2
-                size={{ xs: 12, md: spaces.length === 2 ? 6 : 4 }}
-                key={index}
-              >
-                <SpaceCard {...space} />
-              </Grid2>
+              <SpaceCard key={index} {...space} layoutMode="horizontal" />
             ))}
-          </Grid2>
+          </Box>
         )}
       </Container>
     </Box>
