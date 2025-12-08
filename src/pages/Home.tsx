@@ -28,7 +28,7 @@ const Home: React.FC = () => {
       <Box
         sx={{
           position: "relative",
-          height: { xs: "calc(100dvh + 56px)", md: "calc(100vh + 64px)" },
+          height: { xs: "100vh", md: "calc(100vh + 64px)" },
           width: "100vw",
           overflow: "hidden",
           marginLeft: "calc(-50vw + 50%)",
@@ -49,6 +49,7 @@ const Home: React.FC = () => {
             position: "absolute",
             top: 0,
             left: 0,
+            willChange: "auto",
           }}
         />
         {/* Hero Text Overlay */}
