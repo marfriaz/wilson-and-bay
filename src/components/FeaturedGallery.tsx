@@ -140,7 +140,7 @@ const FeaturedGallery: React.FC = () => {
             textAlign: "center",
           }}
         >
-          In Use
+          Featured Gallery
         </Typography>
 
         {/* Image Display */}

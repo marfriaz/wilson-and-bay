@@ -63,24 +63,12 @@ const GuestReviews: React.FC = () => {
             fontFamily: '"Oooh Baby", "cursive"',
             fontWeight: "bold",
             fontSize: { xs: "2.5rem", md: "4rem" },
-            mb: 2,
+            mb: 6,
             textAlign: "center",
             px: isMobile ? 2 : 0,
           }}
         >
           Loved by Our Guests
-        </Typography>
-
-        <Typography
-          variant="h6"
-          sx={{
-            textAlign: "center",
-            mb: 6,
-            color: "text.secondary",
-            px: isMobile ? 2 : 0,
-          }}
-        >
-          ⭐ {PEERSPACE_RATING.toFixed(1)} on Peerspace
         </Typography>
 
         {isMobile ? (
