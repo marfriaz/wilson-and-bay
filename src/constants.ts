@@ -8,11 +8,31 @@ export const wilsonImages = Array.from({ length: 12 }, (_, i) => {
   };
 });
 
+export const wilsonGalleryImages = Array.from({ length: 12 }, (_, i) => {
+  const index = i + 1;
+  return {
+    id: index,
+    src: `https://firebasestorage.googleapis.com/v0/b/wilsonandbay.firebasestorage.app/o/wilsonRoom%2Fgallery%2F${index}.jpg?alt=media`,
+    alt: `The Wilson Room ${index}`,
+    space: "wilson",
+  };
+});
+
 export const courtYardImages = Array.from({ length: 25 }, (_, i) => {
   const index = i + 1;
   return {
     id: index,
     src: `https://firebasestorage.googleapis.com/v0/b/wilsonandbay.firebasestorage.app/o/courtyard%2F${index}.jpg?alt=media`,
+    alt: `The Courtyard ${index}`,
+    space: "courtyard",
+  };
+});
+
+export const courtYardGalleryImages = Array.from({ length: 8 }, (_, i) => {
+  const index = i + 1;
+  return {
+    id: index,
+    src: `https://firebasestorage.googleapis.com/v0/b/wilsonandbay.firebasestorage.app/o/courtyard%2Fgallery%2F${index}.jpg?alt=media`,
     alt: `The Courtyard ${index}`,
     space: "courtyard",
   };
@@ -28,7 +48,7 @@ export const theLoftImages = Array.from({ length: 7 }, (_, i) => {
   };
 });
 
-export const galleryData = [...wilsonImages, ...courtYardImages];
+export const galleryData = [...wilsonGalleryImages, ...courtYardGalleryImages];
 
 // Route constants
 export const ROUTES = {
@@ -42,12 +62,12 @@ export const ROUTES = {
 
 // Featured images for home page "In Use" section
 export const featuredImages = [
-  wilsonImages[0], // The Wilson Room 1
-  wilsonImages[4], // The Wilson Room 5
-  courtYardImages[0], // The Courtyard 1
-  courtYardImages[9], // The Courtyard 10
-  wilsonImages[7], // The Wilson Room 8
-  courtYardImages[14], // The Courtyard 15
+  wilsonGalleryImages[0], // The Wilson Room Gallery 1
+  wilsonGalleryImages[1], // The Wilson Room Gallery 2
+  wilsonGalleryImages[2], // The Wilson Room Gallery 3
+  courtYardGalleryImages[0], // The Courtyard Gallery 1
+  courtYardGalleryImages[1], // The Courtyard Gallery 2
+  courtYardGalleryImages[2], // The Courtyard Gallery 3
 ];
 
 // Peerspace review constants
