@@ -25,30 +25,39 @@ const ScrollToTop: React.FC = () => {
       const isMobile = /Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(navigator.userAgent) || 
                        window.innerWidth <= 768;
       
+      // Determine scroll position based on page and device
+      const isHomePage = pathname === '/';
+      let scrollTop = 0;
+      
+      // Only add navbar offset for non-home pages since home has transparent navbar
+      if (!isHomePage) {
+        // MUI AppBar heights: 56px on mobile, 64px on desktop
+        scrollTop = isMobile ? 56 : 64;
+      }
+      
+      // Scroll function with navbar consideration
+      const performScroll = (top: number) => {
+        window.scrollTo({ top, left: 0, behavior: 'auto' });
+        document.documentElement.scrollTop = top;
+        document.body.scrollTop = top;
+      };
+      
       // Immediate scroll attempt
-      window.scrollTo({ top: 0, left: 0, behavior: 'auto' });
-      document.documentElement.scrollTop = 0;
-      document.body.scrollTop = 0;
+      performScroll(scrollTop);
       
       if (isMobile) {
         // Mobile-specific handling with multiple attempts
         const mobileScrollAttempts = () => {
           // First attempt
-          window.scrollTo(0, 0);
-          document.documentElement.scrollTop = 0;
-          document.body.scrollTop = 0;
+          performScroll(scrollTop);
           
           // Second attempt in next frame
           requestAnimationFrame(() => {
-            window.scrollTo(0, 0);
-            document.documentElement.scrollTop = 0;
-            document.body.scrollTop = 0;
+            performScroll(scrollTop);
             
             // Third attempt with slight delay for mobile browsers
             setTimeout(() => {
-              window.scrollTo(0, 0);
-              document.documentElement.scrollTop = 0;
-              document.body.scrollTop = 0;
+              performScroll(scrollTop);
               
               // Final cleanup
               setTimeout(() => {
@@ -66,9 +75,7 @@ const ScrollToTop: React.FC = () => {
       } else {
         // Desktop handling
         requestAnimationFrame(() => {
-          window.scrollTo(0, 0);
-          document.documentElement.scrollTop = 0;
-          document.body.scrollTop = 0;
+          performScroll(scrollTop);
           
           setTimeout(() => {
             htmlElement.style.scrollBehavior = originalHtmlScrollBehavior;
