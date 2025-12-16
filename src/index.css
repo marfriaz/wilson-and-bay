@@ -1,5 +1,8 @@
 html {
   scroll-behavior: smooth;
+  /* Ensure proper mobile viewport handling */
+  -webkit-text-size-adjust: 100%;
+  -ms-text-size-adjust: 100%;
 }
 
 body {
@@ -9,6 +12,21 @@ body {
     sans-serif;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
+  /* Mobile-specific scroll improvements */
+  -webkit-overflow-scrolling: touch;
+  overflow-x: hidden;
+  position: relative;
+}
+
+/* Mobile-specific scroll behavior override for route changes */
+@media (max-width: 768px) {
+  html.route-changing {
+    scroll-behavior: auto !important;
+  }
+  
+  body.route-changing {
+    scroll-behavior: auto !important;
+  }
 }
 
 code {
