@@ -58,6 +58,7 @@ export const ROUTES = {
   THE_LOFT: "/the-loft",
   GALLERY: "/gallery",
   CONTACT: "/contact",
+  FAQS: "/faqs",
 } as const;
 
 // Featured images for home page "In Use" section

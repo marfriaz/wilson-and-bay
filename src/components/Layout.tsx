@@ -214,6 +214,22 @@ const Layout: React.FC = () => {
 
               <Typography
                 component={RouterLink}
+                to="/faqs"
+                sx={{
+                  textDecoration: "none",
+                  color: isHomePage ? "white" : "text.primary",
+                  display: "flex",
+                  alignItems: "center",
+                  textShadow: isHomePage
+                    ? "2px 2px 4px rgba(0, 0, 0, 0.7)"
+                    : "none",
+                }}
+              >
+                FAQs
+              </Typography>
+
+              <Typography
+                component={RouterLink}
                 to="/contact"
                 sx={{
                   textDecoration: "none",
@@ -288,6 +304,14 @@ const Layout: React.FC = () => {
               onClick={toggleDrawer(false)}
             >
               <ListItemText primary="Gallery" />
+            </ListItemButton>
+
+            <ListItemButton
+              component={RouterLink}
+              to="/faqs"
+              onClick={toggleDrawer(false)}
+            >
+              <ListItemText primary="FAQs" />
             </ListItemButton>
 
             <ListItemButton

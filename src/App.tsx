@@ -6,6 +6,7 @@ import Home from "./pages/Home";
 import VenueTemplate from "./components/VenueTemplate"; // Assuming your dynamic venue component is here
 import Contact from "./pages/Contact";
 import Gallery from "./pages/Gallery";
+import FAQs from "./pages/FAQs";
 import NotFound from "./pages/NotFound";
 import ScrollToTop from "./components/ScrollToTop";
 import theme from "./themes/luxury-light-theme";
@@ -32,6 +33,7 @@ const App: React.FC = () => {
 
             <Route path="gallery" element={<Gallery />} />
             <Route path="contact" element={<Contact />} />
+            <Route path="faqs" element={<FAQs />} />
 
             {/* Catch-all route for 404 */}
             <Route path="*" element={<NotFound />} />
