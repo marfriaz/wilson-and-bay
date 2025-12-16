@@ -31,8 +31,23 @@ const ScrollToTop: React.FC = () => {
       
       // Only add navbar offset for non-home pages since home has transparent navbar
       if (!isHomePage) {
-        // MUI AppBar heights: 56px on mobile, 64px on desktop
-        scrollTop = isMobile ? 56 : 64;
+        // Get the actual navbar height
+        const appBar = document.querySelector('[role="banner"]') || document.querySelector('header');
+        let navbarHeight = isMobile ? 56 : 64; // Default MUI AppBar heights
+        
+        if (appBar) {
+          navbarHeight = appBar.getBoundingClientRect().height;
+        }
+        
+        // On mobile, we need to account for the navbar height to prevent content from being hidden
+        // The Layout adds padding, but mobile browsers can have dynamic UI that affects positioning
+        if (isMobile) {
+          // Scroll to just below the navbar to ensure headers are visible
+          scrollTop = Math.max(0, navbarHeight - 20); // 20px buffer to ensure visibility
+        } else {
+          // On desktop, scroll to top and let Layout padding handle positioning
+          scrollTop = 0;
+        }
       }
       
       // Scroll function with navbar consideration
@@ -46,25 +61,30 @@ const ScrollToTop: React.FC = () => {
       performScroll(scrollTop);
       
       if (isMobile) {
-        // Mobile-specific handling with multiple attempts
+        // Mobile-specific handling with multiple attempts and longer delays
         const mobileScrollAttempts = () => {
-          // First attempt
+          // First immediate attempt
           performScroll(scrollTop);
           
           // Second attempt in next frame
           requestAnimationFrame(() => {
             performScroll(scrollTop);
             
-            // Third attempt with slight delay for mobile browsers
+            // Third attempt with delay for mobile browser rendering
             setTimeout(() => {
               performScroll(scrollTop);
               
-              // Final cleanup
+              // Fourth attempt with longer delay for iOS Safari and other mobile browsers
               setTimeout(() => {
-                htmlElement.style.scrollBehavior = originalHtmlScrollBehavior;
-                bodyElement.style.scrollBehavior = originalBodyScrollBehavior;
-                htmlElement.classList.remove('route-changing');
-                bodyElement.classList.remove('route-changing');
+                performScroll(scrollTop);
+                
+                // Final cleanup with longer delay
+                setTimeout(() => {
+                  htmlElement.style.scrollBehavior = originalHtmlScrollBehavior;
+                  bodyElement.style.scrollBehavior = originalBodyScrollBehavior;
+                  htmlElement.classList.remove('route-changing');
+                  bodyElement.classList.remove('route-changing');
+                }, 150);
               }, 100);
             }, 50);
           });

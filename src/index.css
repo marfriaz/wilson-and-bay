@@ -27,6 +27,18 @@ body {
   body.route-changing {
     scroll-behavior: auto !important;
   }
+  
+  /* Add scroll padding to account for fixed navbar on mobile */
+  html {
+    scroll-padding-top: 56px; /* MUI AppBar height on mobile */
+  }
+}
+
+/* Desktop scroll padding */
+@media (min-width: 769px) {
+  html {
+    scroll-padding-top: 64px; /* MUI AppBar height on desktop */
+  }
 }
 
 code {
