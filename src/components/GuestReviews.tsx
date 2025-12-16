@@ -63,9 +63,10 @@ const GuestReviews: React.FC = () => {
             fontFamily: '"Oooh Baby", "cursive"',
             fontWeight: "bold",
             fontSize: { xs: "2.5rem", md: "4rem" },
-            mb: 6,
+            mb: { xs: 3, md: 6 },
             textAlign: "center",
             px: isMobile ? 2 : 0,
+            whiteSpace: { xs: "nowrap", md: "normal" },
           }}
         >
           Loved by Our Guests

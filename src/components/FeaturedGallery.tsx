@@ -137,7 +137,7 @@ const FeaturedGallery: React.FC = () => {
             fontFamily: '"Oooh Baby", "cursive"',
             fontWeight: "bold",
             fontSize: { xs: "2.5rem", md: "4rem" },
-            mb: 4,
+            mb: { xs: 2, md: 4 },
             textAlign: "center",
           }}
         >

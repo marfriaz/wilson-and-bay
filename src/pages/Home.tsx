@@ -147,7 +147,7 @@ const Home: React.FC = () => {
             fontFamily: '"Oooh Baby", "cursive"',
             fontWeight: "bold",
             fontSize: { xs: "2.5rem", md: "4rem" },
-            mb: 2,
+            mb: { xs: 1, md: 2 },
             textAlign: "center",
           }}
         >

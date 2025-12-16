@@ -35,6 +35,7 @@ const ImageGallery2: React.FC<ImageGallery2Props> = ({ images }) => {
   const [open, setOpen] = useState(false);
   const [currentIndex, setCurrentIndex] = useState(0);
   const [imageLoading, setImageLoading] = useState(false);
+  const [galleryIndex, setGalleryIndex] = useState(0); // For main gallery swiping
   const theme = useTheme();
   const isMobile = useMediaQuery(theme.breakpoints.down("sm"));
 
@@ -95,7 +96,7 @@ const ImageGallery2: React.FC<ImageGallery2Props> = ({ images }) => {
     onLast: handleLast,
   });
 
-  // Handle touch swipe for mobile
+  // Handle touch swipe for mobile lightbox
   const [touchStart, setTouchStart] = useState(0);
   const [touchEnd, setTouchEnd] = useState(0);
 
@@ -119,31 +120,88 @@ const ImageGallery2: React.FC<ImageGallery2Props> = ({ images }) => {
     }
   };
 
+  // Handle touch swipe for main gallery
+  const [galleryTouchStart, setGalleryTouchStart] = useState(0);
+  const [galleryTouchEnd, setGalleryTouchEnd] = useState(0);
+
+  const handleGalleryTouchStart = (e: React.TouchEvent) => {
+    setGalleryTouchStart(e.targetTouches[0].clientX);
+  };
+
+  const handleGalleryTouchMove = (e: React.TouchEvent) => {
+    setGalleryTouchEnd(e.targetTouches[0].clientX);
+  };
+
+  const handleGalleryTouchEnd = () => {
+    if (!galleryTouchStart || !galleryTouchEnd) return;
+
+    const diff = galleryTouchStart - galleryTouchEnd;
+    const SWIPE_THRESHOLD = 50;
+
+    if (Math.abs(diff) > SWIPE_THRESHOLD) {
+      if (diff > 0) {
+        // Swipe left - next image
+        setGalleryIndex((prev) => prev === images.length - 1 ? 0 : prev + 1);
+      } else {
+        // Swipe right - previous image
+        setGalleryIndex((prev) => prev === 0 ? images.length - 1 : prev - 1);
+      }
+    }
+
+    // Reset touch state
+    setGalleryTouchStart(0);
+    setGalleryTouchEnd(0);
+  };
+
   return (
     <>
       {/* Grid layout optimized for Spaces2 cards */}
       <Box sx={{ height: "100%", width: "100%", position: "relative" }}>
         {isMobile ? (
-          // Mobile layout - single main image
-          <Box sx={{ position: "relative", height: "100%" }}>
-            <LoadableImage
-              src={images[0]?.src || "/placeholder.svg"}
-              alt={images[0]?.alt}
-              onClick={() => handleOpen(0)}
-              loading="eager"
-              aspectRatio={4 / 3}
-              borderRadius={0}
+          // Mobile layout - swipeable carousel
+          <Box sx={{ position: "relative", height: "100%", overflow: "hidden" }}>
+            <Box
+              onTouchStart={handleGalleryTouchStart}
+              onTouchMove={handleGalleryTouchMove}
+              onTouchEnd={handleGalleryTouchEnd}
               sx={{
+                display: "flex",
+                transition: "transform 0.3s ease-in-out",
+                transform: `translateX(-${galleryIndex * 100}%)`,
                 height: "100%",
-                width: "100%",
-                objectFit: "cover",
               }}
-            />
+            >
+              {images.map((image, index) => (
+                <Box
+                  key={index}
+                  sx={{
+                    minWidth: "100%",
+                    position: "relative",
+                    height: "100%",
+                  }}
+                >
+                  <LoadableImage
+                    src={image.src || "/placeholder.svg"}
+                    alt={image.alt}
+                    onClick={() => handleOpen(index)}
+                    loading={index === 0 ? "eager" : "lazy"}
+                    aspectRatio={4 / 3}
+                    borderRadius={0}
+                    sx={{
+                      height: "100%",
+                      width: "100%",
+                      objectFit: "cover",
+                      cursor: "pointer",
+                    }}
+                  />
+                </Box>
+              ))}
+            </Box>
             {/* Navigation Dots */}
             <NavigationDots
               totalItems={images.length}
-              currentIndex={0} // Always show first image as current
-              onDotClick={handleOpen}
+              currentIndex={galleryIndex}
+              onDotClick={(index) => setGalleryIndex(index)}
               maxDots={5}
               useSmallEdgeDots={true}
               leftOffset="53%"
@@ -438,7 +496,7 @@ const ImageGallery2: React.FC<ImageGallery2Props> = ({ images }) => {
                 zIndex: 3,
               }}
             >
-              <Typography variant="body2">
+              <Typography variant="body2" sx={{ color: "white" }}>
                 {currentIndex + 1} / {images.length}
               </Typography>
             </Box>
