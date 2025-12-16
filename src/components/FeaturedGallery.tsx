@@ -11,6 +11,7 @@ import {
 } from "@mui/material";
 import { ChevronLeft, ChevronRight } from "@mui/icons-material";
 import { useNavigate } from "react-router-dom";
+import NavigationDots from "./NavigationDots";
 import { featuredImages, ROUTES } from "../constants";
 
 const FeaturedGallery: React.FC = () => {
@@ -259,46 +260,12 @@ const FeaturedGallery: React.FC = () => {
                 </IconButton>
               )}
 
-              {/* Navigation Dots - Overlaid on bottom */}
-              <Box
-                sx={{
-                  position: "absolute",
-                  bottom: 16,
-                  left: "50%",
-                  transform: "translateX(-50%)",
-                  display: "flex",
-                  gap: 1,
-                  bgcolor: "rgba(0, 0, 0, 0.3)",
-                  px: 2,
-                  py: 1,
-                  borderRadius: 3,
-                }}
-              >
-                {displayedImages.map((_, index) => (
-                  <Box
-                    key={index}
-                    component="button"
-                    onClick={() => setCurrentSlide(index)}
-                    aria-label={`Go to image ${index + 1}`}
-                    sx={{
-                      width: 8,
-                      height: 8,
-                      borderRadius: "50%",
-                      bgcolor:
-                        currentSlide === index
-                          ? "white"
-                          : "rgba(255, 255, 255, 0.5)",
-                      cursor: "pointer",
-                      border: "none",
-                      padding: 0,
-                      transition: "all 0.3s ease",
-                      "&:hover": {
-                        bgcolor: "white",
-                      },
-                    }}
-                  />
-                ))}
-              </Box>
+              {/* Navigation Dots */}
+              <NavigationDots
+                totalItems={displayedImages.length}
+                currentIndex={currentSlide}
+                onDotClick={setCurrentSlide}
+              />
             </Box>
 
             {/* ARIA Live Region for screen reader announcements */}

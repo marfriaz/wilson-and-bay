@@ -7,7 +7,7 @@ import {
   useTheme,
 } from "@mui/material";
 import { useNavigate } from "react-router-dom";
-import Spaces from "../components/Spaces";
+import Spaces2 from "../components/Spaces2";
 import FeaturedGallery from "../components/FeaturedGallery";
 import GuestReviews from "../components/GuestReviews";
 import InstagramEmbed from "../components/InstagramEmbed";
@@ -110,7 +110,7 @@ const Home: React.FC = () => {
       </Box>
 
       {/* Our Spaces Section */}
-      <Spaces />
+      <Spaces2 />
 
       {/* Featured Gallery Section */}
       <FeaturedGallery />
