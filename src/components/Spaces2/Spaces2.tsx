@@ -310,12 +310,13 @@ const Spaces2: React.FC = () => {
       {/* Render space cards with alternating layouts - full width */}
       <Box sx={{ width: "100%" }}>
         {SPACES_DATA.map((space, index) => (
-          <SpaceCard
-            key={space.id}
-            space={space}
-            layoutDirection={index % 2 === 0 ? 'image-left' : 'image-right'}
-            isMobile={isMobile}
-          />
+          <Box key={space.id} id={space.id}>
+            <SpaceCard
+              space={space}
+              layoutDirection={index % 2 === 0 ? 'image-left' : 'image-right'}
+              isMobile={isMobile}
+            />
+          </Box>
         ))}
       </Box>
     </Box>

@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect } from "react";
 import {
   Box,
   Typography,
@@ -6,7 +6,7 @@ import {
   useMediaQuery,
   useTheme,
 } from "@mui/material";
-import { useNavigate } from "react-router-dom";
+import { useNavigate, useLocation } from "react-router-dom";
 import Spaces2 from "../components/Spaces2";
 import FeaturedGallery from "../components/FeaturedGallery";
 import GuestReviews from "../components/GuestReviews";
@@ -17,6 +17,24 @@ const Home: React.FC = () => {
   const theme = useTheme();
   const isMobile = useMediaQuery(theme.breakpoints.down("md"));
   const navigate = useNavigate();
+  const location = useLocation();
+
+  // Handle hash scrolling
+  useEffect(() => {
+    if (location.hash) {
+      const elementId = location.hash.substring(1); // Remove the # symbol
+      const element = document.getElementById(elementId);
+      if (element) {
+        // Add a small delay to ensure the page has rendered
+        setTimeout(() => {
+          element.scrollIntoView({ 
+            behavior: 'smooth',
+            block: 'center'
+          });
+        }, 100);
+      }
+    }
+  }, [location.hash]);
 
   const heroImageSrc = isMobile
     ? "https://firebasestorage.googleapis.com/v0/b/wilsonandbay.firebasestorage.app/o/banners%2F2.jpeg?alt=media"
@@ -110,7 +128,9 @@ const Home: React.FC = () => {
       </Box>
 
       {/* Our Spaces Section */}
-      <Spaces2 />
+      <Box id="our-spaces">
+        <Spaces2 />
+      </Box>
 
       {/* Featured Gallery Section */}
       <FeaturedGallery />

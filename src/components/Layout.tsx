@@ -30,9 +30,22 @@ import {
 import EmailIcon from "@mui/icons-material/Email";
 import LocationOnIcon from "@mui/icons-material/LocationOn";
 import InstagramIcon from "@mui/icons-material/Instagram";
-import { Link as RouterLink, Outlet, useLocation } from "react-router-dom";
-import { venueJson, Venue } from "./VenueJson";
+import { Link as RouterLink, Outlet, useLocation, useNavigate } from "react-router-dom";
 import { PEERSPACE_URL } from "../constants";
+
+// Space data for navigation
+const SPACES_NAV_DATA = [
+  {
+    id: 'wilson-room',
+    name: 'The Wilson Room',
+    route: '/#wilson-room'
+  },
+  {
+    id: 'courtyard',
+    name: 'The Courtyard',
+    route: '/#courtyard'
+  }
+];
 
 const Layout: React.FC = () => {
   const [spacesAnchorEl, setSpacesAnchorEl] = useState<null | HTMLElement>(
@@ -45,6 +58,7 @@ const Layout: React.FC = () => {
   const theme = useTheme();
   const isMobile = useMediaQuery(theme.breakpoints.down("sm"));
   const location = useLocation();
+  const navigate = useNavigate();
   const isHomePage = location.pathname === "/";
 
   const handleSpacesClick = (event: React.MouseEvent<HTMLElement>) => {
@@ -53,6 +67,24 @@ const Layout: React.FC = () => {
 
   const handleSpacesClose = () => {
     setSpacesAnchorEl(null);
+  };
+
+  const handleSpaceNavigation = (spaceId: string) => {
+    handleSpacesClose();
+    
+    if (isHomePage) {
+      // If already on home page, scroll directly to the element
+      const element = document.getElementById(spaceId);
+      if (element) {
+        element.scrollIntoView({ 
+          behavior: 'smooth',
+          block: 'center'
+        });
+      }
+    } else {
+      // If on a different page, navigate to home with hash
+      navigate(`/#${spaceId}`);
+    }
   };
 
   const toggleDrawer = (open: boolean) => () => {
@@ -178,21 +210,14 @@ const Layout: React.FC = () => {
                     "aria-labelledby": "spaces-button",
                   }}
                 >
-                  {venueJson.venues.map(
-                    (venue: Venue) =>
-                      // Explicitly check if name and route are non-empty strings
-                      venue?.name &&
-                      venue?.route && (
-                        <MenuItem
-                          key={venue.route} // Use route as a unique key
-                          onClick={handleSpacesClose}
-                          component={RouterLink}
-                          to={venue.route} // Link to the venue's route
-                        >
-                          {venue.name}
-                        </MenuItem>
-                      )
-                  )}
+                  {SPACES_NAV_DATA.map((space) => (
+                    <MenuItem
+                      key={space.id}
+                      onClick={() => handleSpaceNavigation(space.id)}
+                    >
+                      {space.name}
+                    </MenuItem>
+                  ))}
                 </Menu>
               </Box>
 
@@ -270,30 +295,26 @@ const Layout: React.FC = () => {
                 primaryTypographyProps={{ fontWeight: "medium" }}
               />
               {spacesExpanded ? (
-                <KeyboardArrowDown fontSize="small" />
-              ) : (
                 <KeyboardArrowUp fontSize="small" />
+              ) : (
+                <KeyboardArrowDown fontSize="small" />
               )}
             </ListItemButton>
 
             {/* Conditionally render space links based on expanded state */}
             {spacesExpanded && (
               <>
-                {venueJson.venues.map(
-                  (venue: Venue) =>
-                    venue?.name &&
-                    venue?.route && (
-                      <ListItemButton
-                        key={venue?.route}
-                        component={RouterLink}
-                        to={venue?.route}
-                        onClick={toggleDrawer(false)}
-                        sx={{ pl: 4 }}
-                      >
-                        <ListItemText primary={venue?.name} />
-                      </ListItemButton>
-                    )
-                )}
+                {SPACES_NAV_DATA.map((space) => (
+                  <ListItemButton
+                    key={space.id}
+                    component={RouterLink}
+                    to={space.route}
+                    onClick={toggleDrawer(false)}
+                    sx={{ pl: 4 }}
+                  >
+                    <ListItemText primary={space.name} />
+                  </ListItemButton>
+                ))}
               </>
             )}
             <Divider sx={{ my: 1 }} />
