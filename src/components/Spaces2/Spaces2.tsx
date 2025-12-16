@@ -86,7 +86,7 @@ const SPACES_DATA: SpaceData[] = [
     })),
     capacity: 120,
     squareFootage: 900,
-    description: 'Step into a story where exposed brick meets soaring ceilings and natural light dances through oversized windows. This two-story architectural gem transforms any gathering into an unforgettable experience, where industrial heritage embraces contemporary elegance.'
+    description: 'A two-story, sun-filled historic venue blending industrial character with modern design.'
   },
   {
     id: 'courtyard',
@@ -99,7 +99,7 @@ const SPACES_DATA: SpaceData[] = [
     })),
     capacity: 500,
     squareFootage: 4300,
-    description: 'An urban oasis where creativity knows no bounds. This expansive outdoor sanctuary adapts to your vision—from intimate gatherings under string lights to grand celebrations beneath the open sky. Secure, accessible, and endlessly inspiring.'
+    description: 'A flexible outdoor courtyard perfect for large events, pop-ups, and load-ins, with gated access for ease.'
   }
 ];
 
