@@ -119,7 +119,7 @@ const Home: React.FC = () => {
       <GuestReviews />
 
       {/* Instagram Embed Section */}
-      <Container maxWidth="md" sx={{ my: 4, px: 2 }}>
+      <Container maxWidth="md" sx={{ mt: 4, px: 2 }}>
         <Typography
           variant="h2"
           gutterBottom

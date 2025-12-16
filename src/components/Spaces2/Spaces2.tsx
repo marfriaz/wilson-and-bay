@@ -289,7 +289,7 @@ const Spaces2: React.FC = () => {
   const isMobile = useMediaQuery(theme.breakpoints.down("md"));
 
   return (
-    <Box sx={{ py: 8, bgcolor: "background.default", width: "100%", overflow: "hidden" }}>
+    <Box sx={{ pt: 8, bgcolor: "background.default", width: "100%", overflow: "hidden" }}>
       {/* Section title matching other subheaders */}
       <Typography
         variant="h2"

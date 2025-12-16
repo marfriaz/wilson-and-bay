@@ -123,7 +123,7 @@ const FeaturedGallery: React.FC = () => {
     <Box
       component="section"
       sx={{
-        py: { xs: 6, md: 8 },
+        pt: { xs: 6, md: 8 },
         bgcolor: "background.default",
       }}
     >

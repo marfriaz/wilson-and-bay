@@ -53,7 +53,7 @@ const GuestReviews: React.FC = () => {
   };
 
   return (
-    <Box sx={{ py: 8, bgcolor: "background.default" }}>
+    <Box sx={{ pt: 8, bgcolor: "background.default" }}>
       <Container maxWidth={isMobile ? false : "lg"} disableGutters={isMobile}>
         <Typography
           variant="h2"
