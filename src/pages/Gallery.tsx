@@ -207,8 +207,11 @@ const Gallery: React.FC = () => {
           variant="h2"
           gutterBottom
           sx={{
-            mb: 3,
-            fontSize: { xs: "1.75rem", sm: "2.5rem", md: "3rem" },
+            mb: 4,
+            fontSize: { xs: "2rem", sm: "2.5rem", md: "3rem" },
+            textAlign: "center",
+            fontFamily: '"Oooh Baby", "cursive"',
+            fontWeight: "bold",
           }}
         >
           Gallery
